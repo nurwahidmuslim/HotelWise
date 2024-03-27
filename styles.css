@@ -26,11 +26,11 @@ body {
 }
 
 .navbar-brand .wise {
-    color: #FA7070; /* Warna merah untuk teks "Wise" */
+    color: #FA7070;
 }
 
 .navbar-brand .hotel {
-    color: #A1C398; /* Warna hijau untuk teks "Hotel" */
+    color: #A1C398;
 }
 
 .navbar-right {
@@ -321,6 +321,6 @@ body {
     transform: translateY(-50%);
     cursor: pointer;
     user-select: none;
-    width: 20px; /* Sesuaikan ukuran gambar */
-    height: auto; /* Sesuaikan ukuran gambar */
+    width: 20px;
+    height: auto;
 }
