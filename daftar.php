@@ -23,10 +23,10 @@
         $alert_message = "";
 
         // Periksa koneksi
-        $servername = "localhost"; // Ganti dengan nama server Anda
-        $username = "root"; // Ganti dengan username database Anda
-        $password = ""; // Ganti dengan password database Anda
-        $dbname = "hotelwise"; // Ganti dengan nama database Anda
+        $servername = "localhost";
+        $username = "root";
+        $password = ""; 
+        $dbname = "hotelwise";
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Koneksi gagal: " . $conn->connect_error);
@@ -95,12 +95,12 @@
     // Ambil pesan alert
     var alertMessage = document.getElementById('alertMessage');
 
-    // Jika terdapat pesan alert, tampilkan dan hilangkan setelah 3 detik
+    // Jika terdapat pesan alert, tampilkan dan hilangkan setelah ? detik
     if (alertMessage.innerHTML.trim() !== '') {
         alertMessage.style.display = 'block';
         setTimeout(function () {
             alertMessage.style.display = 'none';
-        }, 1000); // 3000 milidetik = 3 detik
+        }, 1000);
     }
 
     function togglePassword(inputId) {
@@ -108,10 +108,10 @@
         var passwordToggle = document.querySelector('#' + inputId + ' + .password-toggle');
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            passwordToggle.src = "mata.png"; // Mengganti ke gambar mata tertutup
+            passwordToggle.src = "mata.png";
         } else {
             passwordInput.type = "password";
-            passwordToggle.src = "mata.png"; // Mengganti ke gambar mata terbuka
+            passwordToggle.src = "mata.png";
         }
     }
 </script>
