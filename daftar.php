@@ -79,12 +79,12 @@
         <div class="password-container">
             <input type="password" id="buat-pass" name="password" value="" placeholder="Buat kata sandi">
             <img class="password-toggle" src="mata.png" alt="Show Password" onclick="togglePassword('buat-pass')">
-        </div>
+        </div><br>
         <label for="konf-pass">Konfirmasi Kata Sandi</label><br>
         <div class="password-container">
             <input type="password" id="konf-pass" name="konf_password" value="" placeholder="Konfirmasi kata sandi">
             <img class="password-toggle" src="mata.png" alt="Hide Password" onclick="togglePassword('konf-pass')">
-        </div>
+        </div><br>
         <button type="submit">Daftar</button><br><br><br><br>
         <p style="text-align: center;">Sudah punya akun?</p>
         <a href="masuk.html">Masuk disini</a>
