@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $_SESSION['namaP'] = $row['nama_panggilan'];
-        header("Location: index.php");
+        header("Location: index_login.php");
         exit();
     } else {
         $alert_message = "Email atau kata sandi salah.";
