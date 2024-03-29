@@ -7,7 +7,7 @@ body {
 
 .navbar {
     background-color: #FEFDED;
-    padding: 10px 20px;
+    padding: 15px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -44,14 +44,15 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     color: white;
-    border: none;
+    border: 1px solid #FA7070;
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
 }
 
 .btn:hover {
-    background-color: #db6161;
+    background-color: white;
+    color: #FA7070;
 }
 
 .content {
@@ -172,24 +173,26 @@ body {
     text-align: center;
 }
 
-.btn-pesan {
-    padding: 10px;
+.btn-cari {
+    padding: 0px 20px;
+    padding-top: 6px;
     margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #FA7070;
+    background-color: transparent;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
-    font-size: 12px;
-    color: white;
-    border: none;
-    border-radius: 10px;
+    font-size: 14px;
+    color: #FA7070;
+    border: 1px solid #FA7070;
+    border-radius: 20px;
     cursor: pointer;
     text-decoration: none;
 }
 
-.btn-pesan:hover {
-    background-color: #db6161;
+.btn-cari:hover {
+    background-color: #FA7070;
+    color: white;
 }
 
 .daftar {
