@@ -50,7 +50,7 @@ $conn->close();
         <input type="email" id="email" name="email" value="" placeholder="Masukan email"><br><br>
         <label for="password">Sandi</label><br>
         <div class="password-container">
-            <input type="password" id="password" name="password" value="" placeholder="Buat kata sandi">
+            <input type="password" id="password" name="password" value="" placeholder="Masukan kata sandi">
             <img class="password-toggle" src="mata.png" alt="Show Password" onclick="togglePassword('password')">
         </div><br>
         <a href="#">Lupa sandi?</a><br>
