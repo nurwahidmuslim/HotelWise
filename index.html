@@ -5,39 +5,76 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Welcome</title>
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
-        <nav class="navbar">
-            <div class="navbar-left">
-                <span class="navbar-brand"><span class="wise">Wise</span><span class="hotel">Hotel</span></span>
-            </div>
-            <div class="navbar-right">
-                <a href="daftar.php" class="btn">Daftar | Masuk</a>
-            </div>
-        </nav>
+        <div class="navbar-left">
+            <span class="navbar-brand">WiseHotel</span>
+        </div>
+        <div class="navbar-right">
+            <a href="daftar.php" class="btn">Daftar | Masuk</a>
+        </div>
         <div class="content">
             <div class="left-content">
-                <h1>Tingkatkan<br>Pengalaman<br>Menginap Anda:<br>
-                Temukan<br>Kenyamanan Tanpa<br>Batas di Hotel Kami!</h1>
+                <h1>Tingkatkan Pengalaman Menginap Anda<br>
+                Temukan Kenyamanan Tanpa Batas<br>di Hotel Kami!</h1>
                 <div class="box">
                     <div class="box-left">
                         <p>Check In</p>
-                        <h3>Sabtu, 30 Maret</h3>
+                        <input type="text" id="checkin_date" readonly>
                     </div>
                     <div class="box-right">
                         <p>Check Out</p>
-                        <h3>Minggu, 31 Maret</h3>
-                    </div>
+                        <input type="text" id="checkout_date" readonly>
+                    </div>                    
                     <div class="box-bottom">
                         <p>Rooms</p>
                         <h3>1 Room, 2 Guest</h3>
                     </div>
-                    <a href="daftar.php" class="btn-pesan">Cari</a>
+                    <a href="daftar.php" class="btn-cari">Cari</a>
                 </div>
             </div>
             <div class="right-content">
-                <img src="HoteWise_Logo.png" alt="Gambar Hotel">
+                <img src="HoteWise Logo.png" alt="Gambar Hotel">
             </div>
         </div>
+
+        <footer class="footer">
+            <div class="footer-top">
+                <img src="Group 2.svg">
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2024 by WiseHotel Teams. All rights reserved</p>
+            </div>
+        </footer>
     </body>
+
+    <script>
+        $(function() {
+            var today = new Date();
+            var tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+            
+            $("#checkin_date").datepicker({
+                dateFormat: 'dd MM yy',
+                minDate: 0, 
+                onSelect: function(date) {
+                    var selectedDate = new Date(date);
+                    var endDate = new Date(selectedDate);
+                    endDate.setDate(selectedDate.getDate() + 1);
+                    $("#checkout_date").datepicker("option", "minDate", endDate);
+                }
+            });
+            
+            $("#checkout_date").datepicker({
+                dateFormat: 'dd MM yy',
+                minDate: 1 
+            });
+            
+            $("#checkin_date").datepicker("setDate", today);
+            $("#checkout_date").datepicker("setDate", tomorrow);
+        });
+    </script>    
 </html>
