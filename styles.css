@@ -25,7 +25,7 @@ body {
 }
 
 .navbar {
-    background-color: #042048;
+    background-color: transparent;
     padding: 15px 50px;
     display: flex;
     justify-content: space-between;
@@ -36,7 +36,7 @@ body {
     display: flex;
     align-items: center;
     padding: 20px;
-    margin-left: 50px;
+    margin-left: 20px;
 }
 
 .navbar-brand {
@@ -48,8 +48,9 @@ body {
 
 .navbar-right {
     display: flex;
-    margin-top: -45px;
-    margin-left: 1030px;
+    align-items: center;
+    padding: 20px;
+    margin-right: 20px;
 }
 
 .btn {
