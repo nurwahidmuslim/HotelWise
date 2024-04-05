@@ -15,7 +15,7 @@ session_start();
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body class="index-page">
-        <nav>
+        <nav class="navbar">
             <div class="navbar-left">
                 <span class="navbar-brand">WiseHotel</span>
             </div>
