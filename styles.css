@@ -364,12 +364,11 @@ body {
 }
 
 .alert {
-    background-color: #f2dede;
-    color: #a94442;
+    background-color: #ABCDF6;
+    color: #17448F;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ebccd1;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
 .password-container {
