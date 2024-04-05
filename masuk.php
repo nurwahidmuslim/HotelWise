@@ -35,7 +35,7 @@ $conn->close();
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <nav>
+        <nav class="navbar">
             <div class="navbar-left">
                 <span class="navbar-brand">WiseHotel</span>
             </div>
