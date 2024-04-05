@@ -8,9 +8,11 @@
         </style>
     </head>
     <body>
-        <div class="navbar-left">
-            <span class="navbar-brand">WiseHotel</span>
-        </div>
+        <nav>
+            <div class="navbar-left">
+                <span class="navbar-brand">WiseHotel</span>
+            </div>
+        </nav>
         <div class="daftar">
             <form method="post">
                 <h2>Daftar</h2>
