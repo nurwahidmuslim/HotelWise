@@ -9,7 +9,7 @@
         </style>
     </head>
     <body>
-        <nav>
+        <nav class="navbar">
             <div class="navbar-left">
                 <span class="navbar-brand">WiseHotel</span>
             </div>
