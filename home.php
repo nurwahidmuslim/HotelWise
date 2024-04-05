@@ -14,9 +14,11 @@ session_start();
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body class="index-page">
-        <div class="navbar-left">
-            <span class="navbar-brand">WiseHotel</span>
-        </div>
+        <nav>
+            <div class="navbar-left">
+                <span class="navbar-brand">WiseHotel</span>
+            </div>
+        </nav>
         <div class="navbar-right">
             <?php if (isset($_SESSION['namaP'])): ?>
             <span class="hello" style="color: #ABCDF6; text-transform: capitalize; font-size: 18px;">Halo, <span style="font-weight: bold;"><?php echo $_SESSION['namaP']; ?></span></span>
