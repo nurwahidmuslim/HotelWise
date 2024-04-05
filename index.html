@@ -99,35 +99,35 @@
             });
         </script>        
 
-    <script>
-        let selectedOption = document.getElementById('selectedOption');
-        selectedOption.innerText = "1 Room, 2 Guests";
+        <script>
+            let selectedOption = document.getElementById('selectedOption');
+            selectedOption.innerText = "1 Room, 2 Guests";
 
-        function toggleOptions() {
-            let options = document.getElementById('options');
-            if (options.style.display === 'block') {
-                options.style.display = 'none';
-            } else {
-                options.style.display = 'block';
+            function toggleOptions() {
+                let options = document.getElementById('options');
+                if (options.style.display === 'block') {
+                    options.style.display = 'none';
+                } else {
+                    options.style.display = 'block';
+                }
             }
-        }
 
-        document.addEventListener('click', function(event) {
-            let options = document.getElementById('options');
-            let boxBottom = document.querySelector('.box-bottom');
-            if (!options.contains(event.target) && !boxBottom.contains(event.target)) {
-                options.style.display = 'none';
+            document.addEventListener('click', function(event) {
+                let options = document.getElementById('options');
+                let boxBottom = document.querySelector('.box-bottom');
+                if (!options.contains(event.target) && !boxBottom.contains(event.target)) {
+                    options.style.display = 'none';
+                }
+            });
+            function selectRoomOption(option) {
+                selectedOption.innerText = option + selectedOption.innerText.split(',')[1];
+                toggleOptions();
             }
-        });
-        function selectRoomOption(option) {
-            selectedOption.innerText = option + selectedOption.innerText.split(',')[1];
-            toggleOptions();
-        }
 
-        function selectGuestOption(option) {
-            selectedOption.innerText = selectedOption.innerText.split(',')[0] + ', ' + option;
-            toggleOptions();
-        }
-    </script>
+            function selectGuestOption(option) {
+                selectedOption.innerText = selectedOption.innerText.split(',')[0] + ', ' + option;
+                toggleOptions();
+            }
+        </script>
     </body>
 </html>
