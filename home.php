@@ -54,7 +54,7 @@ session_start();
                 </div>
             </div>
             <div class="right-content">
-                <img src="HoteWise Logo.png">
+                <img src="HoteWise Logo.svg">
             </div>
         </div>
 
