@@ -32,11 +32,14 @@ $conn->close();
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Masuk</title>
         <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="navbar-left">
-            <span class="navbar-brand">WiseHotel</span>
-        </div>
+        <nav>
+            <div class="navbar-left">
+                <span class="navbar-brand">WiseHotel</span>
+            </div>
+        </nav>
         <div class="masuk">
             <form method="post">
                 <h2>Masuk</h2>
