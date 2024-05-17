@@ -360,7 +360,7 @@ body {
   color: #17448F;
   font-size: 12px;
   margin-top: 10px;
-  margin-left: 20px;
+  margin-left: 15px;
   text-align: left;
 }
 
@@ -372,7 +372,7 @@ body {
   font-weight: bold;
   font-size: 14px;
   width: 85%;
-  margin-left: 5px;
+  margin-left: 10px;
   margin-right: 5px;
 }
 
@@ -391,7 +391,7 @@ body {
   color: #17448F;
   font-size: 12px;
   margin-top: 10px;
-  margin-left: 20px;
+  margin-left: 15px;
   text-align: left;
 }
 
@@ -403,7 +403,7 @@ body {
   font-weight: bold;
   font-size: 14px;
   width: 85%;
-  margin-left: 5px;
+  margin-left: 10px;
   margin-right: 5px;
 }
 
@@ -583,7 +583,10 @@ body {
   color: #ABCDF6;
   border-radius: 10px;
 }
-#edit-btn {
+.button-container {
+  text-align: center;
+}
+#edit-btn, #simpan-btn{
   display: block;
   margin: 20px auto;
   padding: 10px 20px;

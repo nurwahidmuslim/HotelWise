@@ -3,14 +3,14 @@ session_start();
 
 include 'koneksi.php';
 
-$query = "SELECT * FROM profil";
+$query = "SELECT * FROM client";
 $result = mysqli_query($conn, $query);
 
 if ($result && mysqli_num_rows($result) > 0) {
     $data = mysqli_fetch_assoc($result);
     
     $id = $data ['id_client'];
-    $nama = $data['nama'];
+    $nama = $data['nama_lengkap'];
     $email = $data['email'];
     $no_telp = $data['no_telp'];
     $tgl_lahir = $data['tgl_lahir'];
@@ -89,7 +89,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
         <div class="content">
         <h1>Profil</h1>
-        <form id="profile-form">
+        <form id="profile-form" method="post">
             <div class="form-row">
                 <div class="form-group">
                     <label for="nama">Nama</label>
@@ -118,7 +118,10 @@ if ($result && mysqli_num_rows($result) > 0) {
                 </div>
                 <div class="form-group"></div>
             </div>
-            <button type="button" id="edit-btn">Edit Profil</button>
+            <div class="button-container">
+                <button type="button" id="edit-btn">Edit Profil</button>
+                <button type="button" id="simpan-btn" style="display: none;">Simpan Profil</button>
+            </div>
         </form>
         </div>
 
@@ -142,19 +145,24 @@ if ($result && mysqli_num_rows($result) > 0) {
 
         <script src="dropdown.js"></script>
         <script>
+            document.addEventListener('DOMContentLoaded', () => {
             const editBtn = document.getElementById('edit-btn');
-            const formFields = document.querySelectorAll('.form-control');
+            const simpanBtn = document.getElementById('simpan-btn');
+            const formFields = document.querySelectorAll('.form-field');
 
             editBtn.addEventListener('click', () => {
-                if (editBtn.textContent === 'Edit Profil') {
-                    formFields.forEach(field => field.disabled = false);
-                    editBtn.textContent = 'Simpan Profil';
-                } else {
-                    formFields.forEach(field => field.disabled = true);
-                    alert('Profil berhasil disimpan');
-                    editBtn.textContent = 'Edit Profil';
-                }
+                formFields.forEach(field => field.disabled = false);
+                editBtn.style.display = 'none';
+                simpanBtn.style.display = 'inline';
             });
+
+            simpanBtn.addEventListener('click', () => {
+                formFields.forEach(field => field.disabled = true);
+                alert('Profil berhasil disimpan');
+                editBtn.style.display = 'inline';
+                simpanBtn.style.display = 'none';
+            });
+        });
         </script>
     </body>
 </html>
