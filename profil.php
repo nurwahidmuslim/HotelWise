@@ -3,16 +3,12 @@ session_start();
 
 include 'koneksi.php';
 
-// Lakukan query untuk mengambil data dari tabel profil
 $query = "SELECT * FROM profil";
 $result = mysqli_query($conn, $query);
 
-// Periksa apakah query berhasil dieksekusi dan hasilnya tidak kosong
 if ($result && mysqli_num_rows($result) > 0) {
-    // Ambil data dari hasil query
     $data = mysqli_fetch_assoc($result);
     
-    // Setiap data dimasukkan ke dalam variabel sesuai namanya
     $id = $data ['id_client'];
     $nama = $data['nama'];
     $email = $data['email'];
@@ -20,7 +16,6 @@ if ($result && mysqli_num_rows($result) > 0) {
     $tgl_lahir = $data['tgl_lahir'];
     $jenis_kelamin = $data['jenis_kelamin'];
 } else {
-    // Jika tidak ada data, atur nilai default untuk masing-masing variabel
     $id = '';
     $nama = '';
     $email = '';
