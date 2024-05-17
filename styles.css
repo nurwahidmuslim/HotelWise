@@ -488,23 +488,37 @@ body {
 }
 
 .footer {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #042048;
-  color: #ABCDF6;
-  margin-bottom: -30px;
-  text-align: center;
+    padding: 10px 0; /* Mengurangi padding atas dan bawah */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #042048;
+    color: #ABCDF6;
+    margin-bottom: -30px;
+    text-align: center;
+}
+
+.footer h3 {
+    font-size: 16px; /* Mengurangi ukuran font */
+    margin-bottom: 5px; /* Mengurangi margin bawah */
+}
+
+.footer p {
+    font-size: 14px; /* Mengurangi ukuran font */
+    margin-bottom: 10px; /* Mengurangi margin bawah */
 }
 
 .footer img {
-  margin-top: 10px;
-  margin-bottom: -10px;
-  margin-left: 75px;
-  margin-right: 75px;
-  cursor: pointer;
+    margin: 5px; /* Mengurangi margin atas dan bawah */
+    cursor: pointer;
+}
+
+.footer-bottom p {
+    font-size: 12px; /* Mengurangi ukuran font */
+    margin-top: 5px; /* Mengurangi margin atas */
+    margin-bottom: 0; /* Mengurangi margin bawah */
 }
 
 .overlay {
