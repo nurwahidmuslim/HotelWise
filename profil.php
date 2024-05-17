@@ -13,6 +13,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     $data = mysqli_fetch_assoc($result);
     
     // Setiap data dimasukkan ke dalam variabel sesuai namanya
+    $id = $data ['id_client'];
     $nama = $data['nama'];
     $email = $data['email'];
     $no_telp = $data['no_telp'];
@@ -20,6 +21,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     $jenis_kelamin = $data['jenis_kelamin'];
 } else {
     // Jika tidak ada data, atur nilai default untuk masing-masing variabel
+    $id = '';
     $nama = '';
     $email = '';
     $no_telp = '';
@@ -95,26 +97,26 @@ if ($result && mysqli_num_rows($result) > 0) {
         <form id="profile-form">
             <div class="form-row">
                 <div class="form-group">
-                    <label for="name">Nama</label>
-                    <input type="text" id="name" class="form-control" value="<?php echo $nama; ?>" disabled>
+                    <label for="nama">Nama</label>
+                    <input type="text" id="nama" class="form-control" value="<?php echo $nama; ?>" disabled>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" class="form-control" value="<?php echo $email; ?>" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="phone">No Telp</label>
-                    <input type="text" id="phone" class="form-control" value="<?php echo $no_telp; ?>" disabled>
+                    <label for="no_telp">No Telp</label>
+                    <input type="text" id="no_telp" class="form-control" value="<?php echo $no_telp; ?>" disabled>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="dob">Tanggal Lahir</label>
-                    <input type="date" id="dob" class="form-control" value="<?php echo $tgl_lahir; ?>" disabled>
+                    <label for="tg;_lahir">Tanggal Lahir</label>
+                    <input type="date" id="tg;_lahir" class="form-control" value="<?php echo $tgl_lahir; ?>" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="gender">Jenis Kelamin</label>
-                    <select id="gender" class="form-control" disabled>
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select id="jenis_kelamin" class="form-control" disabled>
                         <option value="male" <?php if($jenis_kelamin == 'male') echo 'selected'; ?>>Laki-laki</option>
                         <option value="female" <?php if($jenis_kelamin == 'female') echo 'selected'; ?>>Perempuan</option>
                         <option value="other" <?php if($jenis_kelamin == 'other') echo 'selected'; ?>>Lainnya</option>
@@ -155,7 +157,6 @@ if ($result && mysqli_num_rows($result) > 0) {
                     editBtn.textContent = 'Simpan Profil';
                 } else {
                     formFields.forEach(field => field.disabled = true);
-                    // Tambahkan logika untuk menyimpan data di sini, misalnya menggunakan AJAX untuk mengirim data ke server
                     alert('Profil berhasil disimpan');
                     editBtn.textContent = 'Edit Profil';
                 }

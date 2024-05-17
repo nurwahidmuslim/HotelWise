@@ -22,29 +22,29 @@ session_start();
     justify-content: center;
     align-items: center;
     background-color: #042048;
-}
+    }
 
-body::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 500px;
-    height: 500px;
-    background: url('gambar/HoteWise Logo.svg') no-repeat center center;
-    background-size: contain;
-    margin-top: 50px;
-    transform: translate(-50%, -50%);
-    opacity: 0.5;
-    z-index: -1;
-}
+    body::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        height: 500px;
+        background: url('gambar/HoteWise Logo.svg') no-repeat center center;
+        background-size: contain;
+        margin-top: 50px;
+        transform: translate(-50%, -50%);
+        opacity: 0.5;
+        z-index: -1;
+    }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #ABCDF6;
-}
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #ABCDF6;
+    }
 </style>
 
 <body>
@@ -98,6 +98,24 @@ h1 {
             </div>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <h3>MEET US</h3>
+            <p>Jl. Prof. Dr. Ir. Sumantri Brojonegoro No.1,<br>
+                Gedong Meneng, Kec. Rajabasa,<br>
+                Kota Bandar Lampung,<br>
+                Lampung 35141</p>
+        </div>
+        <div class="footer-img">
+            <img src="gambar/ig.svg">
+            <img src="gambar/twt.svg">
+            <img src="gambar/fb.svg">
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright 2024 by WiseHotel Teams. All rights reserved</p>
+        </div>
+    </footer>
 
     <script src="home.js"></script>
     <script src="dropdown.js"></script>
