@@ -117,9 +117,8 @@ if ($result && mysqli_num_rows($result) > 0) {
                 <div class="form-group">
                     <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select id="jenis_kelamin" class="form-control" disabled>
-                        <option value="male" <?php if($jenis_kelamin == 'male') echo 'selected'; ?>>Laki-laki</option>
-                        <option value="female" <?php if($jenis_kelamin == 'female') echo 'selected'; ?>>Perempuan</option>
-                        <option value="other" <?php if($jenis_kelamin == 'other') echo 'selected'; ?>>Lainnya</option>
+                        <option value="Laki-laki" <?php if($jenis_kelamin == 'Laki-laki') echo 'selected'; ?>>Laki-laki</option>
+                        <option value="Perempuan" <?php if($jenis_kelamin == 'Perempuan') echo 'selected'; ?>>Perempuan</option>
                     </select>
                 </div>
                 <div class="form-group"></div>
