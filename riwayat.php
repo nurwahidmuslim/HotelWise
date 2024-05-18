@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+include 'koneksi.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +19,11 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
         body {
+            height: 100%;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
             background-color: #042048;
-            color: #fff;
-            font-family: "Poppins", sans-serif;
         }
         body::before {
             content: "";
@@ -31,48 +39,6 @@
             opacity: 0.5;
             z-index: -1;
         }
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0; 
-            width: 100%; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background-color: #042048;
-            color: #ABCDF6;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-        .navbar-left {
-            display: flex;
-            align-items: center;
-        }
-        .navbar-right {
-            display: flex;
-            align-items: left;
-        }
-
-        p{
-            padding-top: 10px;
-            font-size: 20px;
-        }
-
-        .navbar-divider {
-            border-left: 1px solid #ABCDF6;
-            height: 50px; 
-            margin: 0 10px; 
-        }
-
-        .logo {
-            height: 50px;
-        }
-
-        .bar{
-            height: 25px;
-        }
-        
         .card {
             background-color: #1A4473;
             border: none;
@@ -104,59 +70,15 @@
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-        .container {
-            margin-top: 120px; /* Adjust this value as needed */
-        }
-        h1{
-            font-size: 25px;
-            color: #ABCDF6;
-            font-weight: bold;
+        h1 {
+            font-size: 32px;
             margin-bottom: 20px;
-        }
-        .alert{
-            background-color: #ABCDF6;
-            color: #042048;
-            font-weight: bold;
-            text-align: left;
-            font-size: 12px;
+            text-align: center;
+            color: #ABCDF6;
         }
         .bi-info-circle-fill {
             margin-left: 5px;
             font-size: 20px;
-        }
-        .footer {
-            padding: 10px 0;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #042048;
-            color: #ABCDF6;
-            margin-bottom: -30px;
-            text-align: center;
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Efek shadow */
-        }
-
-        .footer h3 {
-            font-size: 16px; /* Mengurangi ukuran font */
-            margin-bottom: 5px; /* Mengurangi margin bawah */
-        }
-
-        .footer p {
-            font-size: 14px; /* Mengurangi ukuran font */
-            margin-bottom: 10px; /* Mengurangi margin bawah */
-        }
-
-        .footer img {
-            margin: 5px; /* Mengurangi margin atas dan bawah */
-            cursor: pointer;
-        }
-
-        .footer-bottom p {
-            font-size: 12px; /* Mengurangi ukuran font */
-            margin-top: 5px; /* Mengurangi margin atas */
-            margin-bottom: 0; /* Mengurangi margin bawah */
         }
     </style>
 <body>
@@ -171,14 +93,15 @@
             <span class="hello" style="color: #ABCDF6; text-transform: capitalize; font-size: 18px;">Halo, <span style="font-weight: bold;"><?php echo $_SESSION['namaP']; ?></span></span>
             <?php endif; ?>
             <div class="dropdown" id="dropdown-menu">
-                <a href="#">Profil</a>
-                <a href="#">Contact</a>
-                <a href="#">Riwayat Booking</a>
+                <a href="profil.php">Profil</a>
+                <a href="contact.php">Contact</a>
+                <a href="riwayat.php">Riwayat Booking</a>
                 <a href="daftar.php">Keluar</a>
             </div>
         </div>
     </nav>
-    <div class="container">
+
+    <div class="content">
         <div class="text-center mb-4">
             <h1>History</h1>
             <div class="alert alert-info">
@@ -206,6 +129,7 @@
             </div>
         </div>
     </div>
+
     <footer class="footer">
         <div class="footer-top">
             <h3>MEET US</h3>
@@ -223,5 +147,7 @@
             <p>Copyright 2024 by WiseHotel Teams. All rights reserved</p>
         </div>
     </footer>
+
+    <script src="dropdown.js"></script>
 </body>
 </html>

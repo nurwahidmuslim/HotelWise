@@ -488,7 +488,7 @@ body {
 }
 
 .footer {
-    padding: 10px 0; /* Mengurangi padding atas dan bawah */
+    padding: 10px 0; 
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -501,24 +501,24 @@ body {
 }
 
 .footer h3 {
-    font-size: 16px; /* Mengurangi ukuran font */
-    margin-bottom: 5px; /* Mengurangi margin bawah */
+    font-size: 16px; 
+    margin-bottom: 5px; 
 }
 
 .footer p {
-    font-size: 14px; /* Mengurangi ukuran font */
-    margin-bottom: 10px; /* Mengurangi margin bawah */
+    font-size: 14px; 
+    margin-bottom: 10px;
 }
 
 .footer img {
-    margin: 5px; /* Mengurangi margin atas dan bawah */
+    margin: 5px 50px;
     cursor: pointer;
 }
 
 .footer-bottom p {
-    font-size: 12px; /* Mengurangi ukuran font */
-    margin-top: 5px; /* Mengurangi margin atas */
-    margin-bottom: 0; /* Mengurangi margin bawah */
+    font-size: 12px; 
+    margin-top: 5px; 
+    margin-bottom: 0; 
 }
 
 .overlay {

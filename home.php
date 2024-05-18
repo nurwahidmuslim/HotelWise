@@ -60,8 +60,8 @@ session_start();
             <?php endif; ?>
             <div class="dropdown" id="dropdown-menu">
                 <a href="profil.php">Profil</a>
-                <a href="contact.html">Contact</a>
-                <a href="">Riwayat Booking</a>
+                <a href="contact.php">Contact</a>
+                <a href="riwayat.php">Riwayat Booking</a>
                 <a href="daftar.php">Keluar</a>
             </div>
         </div>

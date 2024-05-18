@@ -79,9 +79,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                 <span class="hello" style="color: #ABCDF6; text-transform: capitalize; font-size: 18px;">Halo, <span style="font-weight: bold;"><?php echo $_SESSION['namaP']; ?></span></span>
                 <?php endif; ?>
                 <div class="dropdown" id="dropdown-menu">
-                    <a href="#">Profil</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Riwayat Booking</a>
+                    <a href="profil.php">Profil</a>
+                    <a href="contact.php">Contact</a>
+                    <a href="riwayat.php">Riwayat Booking</a>
                     <a href="daftar.php">Keluar</a>
                 </div>
             </div>
