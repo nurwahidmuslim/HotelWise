@@ -88,6 +88,7 @@
     <div id="overlay" class="overlay">
         <div class="overlay-content">
             <img src="gambar/alert.svg">
+            <span class="close">&times;</span>
             <p>Anda harus login terlebih dahulu!</p>
             <div class="overlay-buttons">
                 <a href="daftar.html" class="btn-overlay">Daftar</a>
@@ -116,15 +117,16 @@
  
     <script src="home.js"></script>      
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var span = document.getElementsByClassName('close')[0];
+
+            span.onclick = function () {
+                overlay.style.display = 'none';
+            }
+        });
         document.querySelector('.btn-cari').addEventListener('click', function(event) {
             event.preventDefault();
             document.getElementById('overlay').style.display = 'flex';
-        });
-
-        document.getElementById('overlay').addEventListener('click', function(event) {
-            if (event.target === this) {
-                this.style.display = 'none';
-            }
         });
     </script>        
 </body>
