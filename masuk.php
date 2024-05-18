@@ -46,35 +46,49 @@ $conn->close();
             <img src="gambar/HoteWise Logo.svg">
         </div>
         <div class="login-right">
-        <div class="form-container">
-            <form method="post">
-                <h2>Masuk</h2>
-                <p>Hi, Selamat Datang !</p>
-                <?php if ($alert_message): ?>
-                    <div class="alert"><?php echo $alert_message; ?></div>
-                <?php endif; ?>
-                <label for="email">Email</label><br>
-                <input type="email" id="email" name="email" value="" placeholder="Masukan email"><br><br>
-                <label for="password">Sandi</label><br>
-                <div class="password-container">
-                    <input type="password" id="password" name="password" value="" placeholder="Masukan kata sandi">
-                    <img class="password-toggle" src="gambar/mata.svg" alt="Show Password" onclick="togglePassword('password')">
-                </div><br>
-                <a href="#">Lupa sandi?</a><br>
-                <button type="submit">Masuk</button><br><br><br><br>
-            </form>
+            <div class="form-container">
+                <form method="post">
+                    <h2>Masuk</h2>
+                    <p>Hi, Selamat Datang !</p>
+                    <?php if ($alert_message): ?>
+                        <div id="alertMessage" style="display:none;"><?php echo $alert_message; ?></div>
+                    <?php endif; ?>
+                    <label for="email">Email</label><br>
+                    <input type="email" id="email" name="email" value="" placeholder="Masukan email"><br><br>
+                    <label for="password">Sandi</label><br>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" value="" placeholder="Masukan kata sandi">
+                        <img class="password-toggle" src="gambar/mata.svg" alt="Show Password" onclick="togglePassword('password')">
+                    </div><br>
+                    <a href="#">Lupa sandi?</a><br>
+                    <button type="submit">Masuk</button>
+                </form>
+            </div>
         </div>
+
+        <div id="alertModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="modalMessage"></p>
+            </div>
         </div>
 
         <script>
-            var alertMessage = document.querySelector('.alert');
+            document.addEventListener('DOMContentLoaded', function () {
+                var alertMessage = document.getElementById('alertMessage');
+                var modal = document.getElementById('alertModal');
+                var modalMessage = document.getElementById('modalMessage');
+                var span = document.getElementsByClassName('close')[0];
 
-            if (alertMessage && alertMessage.innerHTML.trim() !== '') {
-                alertMessage.style.display = 'block';
-                setTimeout(function () {
-                    alertMessage.style.display = 'none';
-                }, 2000);
-            }
+                if (alertMessage && alertMessage.innerHTML.trim() !== '') {
+                    modalMessage.textContent = alertMessage.innerHTML;
+                    modal.style.display = 'block';
+                }
+
+                span.onclick = function () {
+                    modal.style.display = 'none';
+                }
+            });
 
             function togglePassword(inputId) {
                 var passwordInput = document.getElementById(inputId);
@@ -88,6 +102,5 @@ $conn->close();
                 }
             }
         </script>
-
     </body>
 </html>
