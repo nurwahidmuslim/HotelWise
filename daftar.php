@@ -6,11 +6,44 @@
         <title>Daftar Akun</title>
         <link rel="stylesheet" href="styles.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-        </style>
     </head>
     <style>
         body {
             display: flex;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
     <body>
@@ -63,7 +96,7 @@
                     $conn->close();
 
                     if (!empty($alert_message)) {
-                        echo '<div class="alert" id="alertMessage">' . $alert_message . '</div>';
+                        echo '<div id="alertMessage" style="display:none;">' . $alert_message . '</div>';
                     }
                     ?>
                     <label for="email">Email</label><br>
@@ -89,15 +122,29 @@
             </div>
         </div>
 
-        <script>
-            var alertMessage = document.getElementById('alertMessage');
+        <div id="alertModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="modalMessage"></p>
+            </div>
+        </div>
 
-            if (alertMessage.innerHTML.trim() !== '') {
-                alertMessage.style.display = 'block';
-                setTimeout(function () {
-                    alertMessage.style.display = 'none';
-                }, 2000);
-            }
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var alertMessage = document.getElementById('alertMessage');
+                var modal = document.getElementById('alertModal');
+                var modalMessage = document.getElementById('modalMessage');
+                var span = document.getElementsByClassName('close')[0];
+
+                if (alertMessage && alertMessage.innerHTML.trim() !== '') {
+                    modalMessage.textContent = alertMessage.innerHTML;
+                    modal.style.display = 'block';
+                }
+
+                span.onclick = function () {
+                    modal.style.display = 'none';
+                }
+            });
 
             function togglePassword(inputId) {
                 var passwordInput = document.getElementById(inputId);
