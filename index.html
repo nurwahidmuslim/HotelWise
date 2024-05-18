@@ -117,16 +117,16 @@
  
     <script src="home.js"></script>      
     <script>
+        document.querySelector('.btn-cari').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('overlay').style.display = 'flex';
+        });
         document.addEventListener('DOMContentLoaded', function () {
             var span = document.getElementsByClassName('close')[0];
 
             span.onclick = function () {
                 overlay.style.display = 'none';
             }
-        });
-        document.querySelector('.btn-cari').addEventListener('click', function(event) {
-            event.preventDefault();
-            document.getElementById('overlay').style.display = 'flex';
         });
     </script>        
 </body>
