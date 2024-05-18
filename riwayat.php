@@ -104,10 +104,10 @@ include 'koneksi.php';
     </nav>
 
     <div class="content">
-        <div class="text-center mb-4">
-            <h1>History</h1>
+        <div class="text-left mb-4">
+            <h1 style="text-align: center;">History</h1>
             <div class="alert alert-info">
-                <i class="bi bi-info-circle-fill"></i> Menampilkan riwayat pemesanan dalam 90 hari terakhir.
+                <i class="bi bi-info-circle-fill" style="color: #042048;">  Menampilkan riwayat pemesanan dalam 90 hari terakhir.</i>
             </div>
         </div>
         <div class="card">

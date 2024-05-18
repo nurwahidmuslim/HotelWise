@@ -27,7 +27,7 @@
                     $alert_message = "";
 
                     include 'koneksi.php';
-
+                    
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $email = $_POST['email'];
                         $namaL = $_POST['namaL'];
