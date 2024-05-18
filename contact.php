@@ -22,6 +22,9 @@ session_start();
             align-items: center;
             background-color: #042048;
         }
+        .navbar-right {
+            margin-right: 0px;
+        }
         body::before {
             content: "";
             position: absolute;
