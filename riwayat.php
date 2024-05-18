@@ -60,8 +60,8 @@
         }
 
         .navbar-divider {
-            border-left: 1px solid #ABCDF6; /* Warna garis vertikal */
-            height: 50px; /* Tinggi garis vertikal */
+            border-left: 1px solid #ABCDF6;
+            height: 50px; 
             margin: 0 10px; 
         }
 
@@ -122,10 +122,10 @@
         }
         .bi-info-circle-fill {
             margin-left: 5px;
-            font-size: 20px; /* Mengatur ukuran font menjadi 24px */
+            font-size: 20px;
         }
         .footer {
-            padding: 10px 0; /* Mengurangi padding atas dan bawah */
+            padding: 10px 0;
             margin-top: 20px;
             display: flex;
             flex-direction: column;
@@ -165,9 +165,17 @@
             <img src="gambar/logo.svg" alt="Logo" class="logo">
         </div>
         <div class="navbar-right">
-            <img src="gambar/bar.svg" alt="Bar" class="bar">
-            <div class="navbar-divider"></div> <!-- Garis vertikal -->
-            <p>Halo, </p>
+            <img src="gambar/bar.svg" alt="Icon" class="icon" id="dropdown-icon">
+            <div class="separator"></div>
+            <?php if (isset($_SESSION['namaP'])): ?>
+            <span class="hello" style="color: #ABCDF6; text-transform: capitalize; font-size: 18px;">Halo, <span style="font-weight: bold;"><?php echo $_SESSION['namaP']; ?></span></span>
+            <?php endif; ?>
+            <div class="dropdown" id="dropdown-menu">
+                <a href="#">Profil</a>
+                <a href="#">Contact</a>
+                <a href="#">Riwayat Booking</a>
+                <a href="daftar.php">Keluar</a>
+            </div>
         </div>
     </nav>
     <div class="container">

@@ -329,7 +329,6 @@
         </div>
     </footer>
     
-    <script src="home.js"></script>
     <script src="dropdown.js"></script>
 </body>
 </html>
