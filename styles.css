@@ -30,6 +30,17 @@ body {
   height: 50px;
 }
 
+.navbar-middle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.navbar-middle input[type="date"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;

@@ -1,9 +1,28 @@
 <?php
 session_start();
+include 'koneksi.php'; // File to connect to the database
+
+// Fetch room data from the database
+$query = "
+    SELECT k.no_kamar, k.harga, k.status, t.tipe_kamar 
+    FROM kamar k
+    JOIN tipe_kamar t ON k.tipe_kamar = t.id_kamar
+";
+$result = $conn->query($query);
+$rooms = [];
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        // Group rooms by type
+        if (!isset($rooms[$row['tipe_kamar']])) {
+            $rooms[$row['tipe_kamar']] = $row;
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,12 +86,107 @@ session_start();
         .container img {
             margin-right: 10px;
         }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay-content {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 400px; /* Adjust width as needed */
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Drop shadow for a raised effect */
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333; /* Dark color for the close icon */
+        }
+
+        .order-details h2 {
+            color: #002b59;
+        }
+
+        .room-infoo {
+            background-color: #e5e5e5;
+            border-radius: 10px;
+            margin: 20px 0;
+            padding: 10px;
+        }
+
+        .check-in-out {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .check-in, .check-out {
+            width: 45%;
+        }
+
+        .room-type {
+            margin-top: 10px;
+        }
+
+        .room-type p {
+            margin: 5px 0;
+        }
+
+        .room-number {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #e5e5e5;
+            border-radius: 10px;
+        }
+
+        .number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #002b59;
+        }
+
+        .book-now {
+            background-color: #002b59;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .book-now:hover {
+            background-color: #004080;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="navbar-left">
             <img src="gambar/logo.svg" alt="Logo" class="logo">
+        </div>
+        <div class="navbar-middle">
+            <label for="checkin-date" style="color: #fff;">Check-in:</label>
+            <input type="date" id="checkin-date" name="checkin-date">
+            <label for="checkout-date" style="color: #fff;">Check-out:</label>
+            <input type="date" id="checkout-date" name="checkout-date">
         </div>
         <div class="navbar-right">
             <img src="gambar/bar.svg" alt="Icon" class="icon" id="dropdown-icon">
@@ -89,10 +203,11 @@ session_start();
         </div>
     </nav>
     <div class="content">
+        <?php foreach ($rooms as $room): ?>
         <div class="room-card">
             <img src="gambar/kamar 1.svg" width="300">
             <div class="room-info">
-                <h2>Standard Single/Twin Room</h2>
+                <h2><?php echo htmlspecialchars($room['tipe_kamar']); ?></h2>
                 <div class="container">
                     <img src="gambar/size.svg" alt="Size">
                     <p>Size: 20m²</p>
@@ -112,69 +227,12 @@ session_start();
             </div>
             <div class="button-container">
                 <p class="price"><span>Harga mulai dari:</span><br>
-                <span style="font-size: 20px; font-weight: bold;">Rp 150.000,00</span><br>
+                <span style="font-size: 20px; font-weight: bold;">Rp <?php echo number_format($room['harga'], 2, ',', '.'); ?></span><br>
                 <span>per malam</span></p>
-                <a href="#" class="button">Pesan Sekarang</a>
+                <button class="button" onclick="showOverlay('<?php echo htmlspecialchars($room['tipe_kamar']); ?>', '<?php echo number_format($room['harga'], 2, ',', '.'); ?>')">Pesan Sekarang</button>
             </div>
         </div>
-
-        <div class="room-card">
-            <img src="gambar/kamar 1.svg" width="300">
-            <div class="room-info">
-                <h2>Standard Single/Twin Room</h2>
-                <div class="container">
-                    <img src="gambar/size.svg" alt="Size">
-                    <p>Size: 20m²</p>
-                </div>
-                <div class="container">
-                    <img src="gambar/bed.svg" alt="Bed Type">
-                    <p>Bed Type: Single Bed</p>
-                </div>
-                <div class="container">
-                    <img src="gambar/cate.svg" alt="Categories">
-                    <p>Categories: double, single</p>
-                </div>
-                <div class="container">
-                    <img src="gambar/star.svg" alt="Amenities">
-                    <p>Amenities: free wi-fi, Meja dan Kursi, Teko Elektrik, TV</p>
-                </div>
-            </div>
-            <div class="button-container">
-                <p class="price"><span>Harga mulai dari:</span><br>
-                <span style="font-size: 20px; font-weight: bold;">Rp 150.000,00</span><br>
-                <span>per malam</span></p>
-                <a href="#" class="button">Pesan Sekarang</a>
-            </div>
-        </div>
-
-        <div class="room-card">
-            <img src="gambar/kamar 1.svg" width="300">
-            <div class="room-info">
-                <h2>Standard Single/Twin Room</h2>
-                <div class="container">
-                    <img src="gambar/size.svg" alt="Size">
-                    <p>Size: 20m²</p>
-                </div>
-                <div class="container">
-                    <img src="gambar/bed.svg" alt="Bed Type">
-                    <p>Bed Type: Single Bed</p>
-                </div>
-                <div class="container">
-                    <img src="gambar/cate.svg" alt="Categories">
-                    <p>Categories: double, single</p>
-                </div>
-                <div class="container">
-                    <img src="gambar/star.svg" alt="Amenities">
-                    <p>Amenities: free wi-fi, Meja dan Kursi, Teko Elektrik, TV</p>
-                </div>
-            </div>
-            <div class="button-container">
-                <p class="price"><span>Harga mulai dari:</span><br>
-                <span style="font-size: 20px; font-weight: bold;">Rp 150.000,00</span><br>
-                <span>per malam</span></p>
-                <a href="#" class="button">Pesan Sekarang</a>
-            </div>
-        </div>
+        <?php endforeach; ?>
 
         <footer class="footer">
             <div class="footer-top">
@@ -195,6 +253,98 @@ session_start();
         </footer>
     </div>
 
+    <div class="overlay" id="overlay">
+        <div class="overlay-content" id="overlay-content">
+            <span class="close-icon" id="close-icon">&times;</span>
+            <div class="order-details">
+                <h2>Detail Pesanan</h2>
+                <p class="price" id="overlay-price">Rp 150.000,00</p>
+                <div class="room-infoo">
+                    <div class="check-in-out">
+                        <div class="check-in">
+                            <p>Check in</p>
+                            <p id="overlay-checkin-date">Sabtu, 4 Mei 2024</p>
+                        </div>
+                        <div class="check-out">
+                            <p>Check Out</p>
+                            <p id="overlay-checkout-date">Minggu, 5 Mei 2024</p>
+                        </div>
+                    </div>
+                    <div class="room-type">
+                        <p>Tipe Kamar</p>
+                        <p id="overlay-room-type">Standard Single/Twin Room</p>
+                    </div>
+                </div>
+                <div class="room-number">
+                    <span>No Kamar</span>
+                    <select id="overlay-room-number"></select>
+                </div>
+                <button class="book-now">Pesan Sekarang</button>
+            </div>
+        </div>
+    </div>
+
     <script src="dropdown.js"></script>
+    <script>
+        document.getElementById('close-icon').addEventListener('click', function() {
+            document.getElementById('overlay').style.display = 'none';
+        });
+
+        // Set the minimum and default check-in date to today
+        const today = new Date().toISOString().split('T')[0];
+        const checkinDateInput = document.getElementById('checkin-date');
+        const checkoutDateInput = document.getElementById('checkout-date');
+        checkinDateInput.setAttribute('min', today);
+        checkinDateInput.value = today;
+
+        // Set the default check-out date to one day after today
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const formattedTomorrow = tomorrow.toISOString().split('T')[0];
+        checkoutDateInput.setAttribute('min', formattedTomorrow);
+        checkoutDateInput.value = formattedTomorrow;
+
+        // Update the minimum check-out date based on the selected check-in date
+        checkinDateInput.addEventListener('change', function() {
+            const checkinDate = new Date(this.value);
+            const checkoutDate = new Date(checkinDate);
+            checkoutDate.setDate(checkoutDate.getDate() + 1); // Add one day
+            const formattedCheckoutDate = checkoutDate.toISOString().split('T')[0];
+            checkoutDateInput.setAttribute('min', formattedCheckoutDate);
+            checkoutDateInput.value = formattedCheckoutDate;
+        });
+
+        function showOverlay(roomType, price) {
+            const overlay = document.getElementById('overlay');
+            document.getElementById('overlay-room-type').innerText = roomType;
+            document.getElementById('overlay-price').innerText = `Rp ${price}`;
+            document.getElementById('overlay-checkin-date').innerText = checkinDateInput.value;
+            document.getElementById('overlay-checkout-date').innerText = checkoutDateInput.value;
+            overlay.style.display = 'flex';
+
+            // Fetch available room numbers from the server
+            fetchAvailableRoomNumbers(roomType);
+        }
+
+        function fetchAvailableRoomNumbers(roomType) {
+            const request = new XMLHttpRequest();
+            request.open('POST', 'pilih_nomor.php', true);
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            request.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    const roomNumbers = JSON.parse(this.responseText);
+                    const roomNumberSelect = document.getElementById('overlay-room-number');
+                    roomNumberSelect.innerHTML = ''; // Clear previous options
+                    roomNumbers.forEach(function(number) {
+                        const option = document.createElement('option');
+                        option.value = number;
+                        option.text = number;
+                        roomNumberSelect.add(option);
+                    });
+                }
+            };
+            request.send(`roomType=${roomType}`);
+        }
+    </script>
 </body>
 </html>
