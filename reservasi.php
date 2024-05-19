@@ -4,7 +4,7 @@ include 'koneksi.php'; // File to connect to the database
 
 // Fetch room data from the database
 $query = "
-    SELECT k.no_kamar, k.harga, k.status, t.tipe_kamar 
+    SELECT k.no_kamar, k.harga, k.status, t.tipe_kamar, t.foto, t.size, t.bed, t.kategori, t.fasilitas
     FROM kamar k
     JOIN tipe_kamar t ON k.tipe_kamar = t.id_kamar
 ";
@@ -205,24 +205,24 @@ if ($result->num_rows > 0) {
     <div class="content">
         <?php foreach ($rooms as $room): ?>
         <div class="room-card">
-            <img src="gambar/kamar 1.svg" width="300">
+        <img src="gambar/<?php echo htmlspecialchars($room['foto']); ?>.svg" width="300">
             <div class="room-info">
                 <h2><?php echo htmlspecialchars($room['tipe_kamar']); ?></h2>
                 <div class="container">
                     <img src="gambar/size.svg" alt="Size">
-                    <p>Size: 20m²</p>
+                    <p>Size: <?php echo htmlspecialchars($room['size']); ?>m²</p>
                 </div>
                 <div class="container">
                     <img src="gambar/bed.svg" alt="Bed Type">
-                    <p>Bed Type: Single Bed</p>
+                    <p>Bed Type: <?php echo htmlspecialchars($room['bed']); ?></p>
                 </div>
                 <div class="container">
                     <img src="gambar/cate.svg" alt="Categories">
-                    <p>Categories: double, single</p>
+                    <p>Categories: <?php echo htmlspecialchars($room['kategori']); ?></p>
                 </div>
                 <div class="container">
                     <img src="gambar/star.svg" alt="Amenities">
-                    <p>Amenities: free wi-fi, Meja dan Kursi, Teko Elektrik, TV</p>
+                    <p>Amenities: <?php echo htmlspecialchars($room['fasilitas']); ?></p>
                 </div>
             </div>
             <div class="button-container">
