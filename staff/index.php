@@ -13,14 +13,14 @@
             <img src="gambar/logo.svg" alt="Logo" class="logo">
         </div>
         <div class="navbar-right">
-            <p>Admin</p>
+            <p>Staff</p>
         </div>
     </nav>
 
     <div class="sidebar">
         <ul>
             <li><a href="index.php">Dashboard</a></li>
-            <li><a href="kamar.php">Kamar</a></li>
+            <li><a href="booking.php">Booking</a></li>
         </ul>
         <a href="logout.php" class="logout">Keluar <<</a>
     </div>
