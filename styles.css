@@ -105,6 +105,7 @@ body {
   color: #042048;
   border-radius: 5px;
   border-bottom: 1px solid #042048;
+  font-weight: bold;
 }
 
 .dropdown a:hover {
