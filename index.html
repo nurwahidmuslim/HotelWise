@@ -17,7 +17,7 @@
         margin: 0;
         justify-content: center;
         align-items: center;
-        background-color: #042048;
+        font-family: 'Poppins', sans-serif;
     }
 
     body::before {
@@ -39,7 +39,62 @@
         font-size: 24px;
         margin-bottom: 20px;
         text-align: center;
-        color: #ABCDF6;
+        color: #d9d9d9;
+    }
+
+    .room-booking {
+        background-color: #d9d9d9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .rooms-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .room {
+        background-color: transparent;
+        overflow: hidden;
+        max-width: 300px;
+    }
+
+    .room img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .room-info {
+        padding: 15px;
+    }
+
+    .room-info h3 {
+        margin: 0 0 10px 0;
+        color: #042048;
+    }
+
+    .room-info p {
+        margin: 0 0 15px 0;
+        color: #666;
+    }
+
+    .room-info .btn-pesan {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #042048;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .room-info .btn-pesan:hover {
+        background-color: #054080;
     }
 </style>
 
@@ -81,7 +136,7 @@
                     <div class="option" onclick="selectGuestOption('4 Guests')">4 Guests</div>
                 </div>
             </div>
-            <a href="#" class="btn-cari"><img class="logo-cari" src="gambar/cari.svg">Cari</a>
+            <a href="#" class="btn-cari">Pesan Sekarang</a>
         </div>
     </div>
 
@@ -95,7 +150,37 @@
                 <a href="masuk.php" class="btn-overlay">Masuk</a>
             </div>
         </div>
-    </div>    
+    </div>  
+
+    <div class="room-booking">
+        <h1 style="color: #042048; font-weight: 1000;">Jelajahi Kamar</h1>
+        <div class="rooms-container">
+            <div class="room">
+                <img src="gambar/kamar 1.svg">
+                <div class="room-info">
+                    <h3>Standard Single/Twin Room</h3>
+                    <p>★★★★☆</p>
+                    <a href="#" class="btn-pesan">Detail</a>
+                </div>
+            </div>
+            <div class="room">
+                <img src="gambar/kamar 2.svg">
+                <div class="room-info">
+                    <h3>Superior Double Room</h3>
+                    <p>★★★★☆</p>
+                    <a href="#" class="btn-pesan">Detail</a>
+                </div>
+            </div>
+            <div class="room">
+                <img src="gambar/kamar 3.svg">
+                <div class="room-info">
+                    <h3>Comfort Triple Room</h3>
+                    <p>★★★★☆</p>
+                    <a href="#" class="btn-pesan">Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <footer class="footer">
         <div class="footer-top">

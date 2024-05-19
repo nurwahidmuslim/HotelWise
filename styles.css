@@ -23,6 +23,7 @@ body {
 .navbar-left {
   display: flex;
   align-items: center;
+  color: #d9d9d9;
 }
 
 .logo {
@@ -45,7 +46,7 @@ body {
 .btn {
   display: inline-block;
   background-color: #1A4473;
-  color: #ABCDF6;
+  color: #d9d9d9;
   padding: 10px 20px;
   margin-left: 10px;
   cursor: pointer;
@@ -57,7 +58,7 @@ body {
   }
 
   .btn:hover {
-      background-color: #ABCDF6;
+      background-color: #d9d9d9;
       color: #1A4473;
   }
 
@@ -238,7 +239,7 @@ body {
   width: 300px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #042048; /* Sama dengan background kanan */
+  background-color: #042048;
 }
 .form-container h2 {
   color: #ABCDF6;
@@ -337,7 +338,7 @@ body {
   width: 600px;
   height: 250px; 
   background-color: transparent;
-  border: 2px solid #1A4473;
+  border: 2px solid #d9d9d9;
   border-radius: 20px;
   margin-top: 30px;
   display: flex;
@@ -417,6 +418,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+  margin-top: 5px;
   border-radius: 5px;
   position: relative;
 }
@@ -463,9 +465,9 @@ body {
 
 .btn-cari {
   display: flex;
-  width: 100px;
-  height: 20px;
-  padding: 0px 5px;
+  width: auto;
+  height: auto;
+  padding: 5px 20px;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -497,13 +499,13 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #042048;
-    color: #ABCDF6;
+    color: #d9d9d9;
     margin-bottom: -30px;
     text-align: center;
 }
 
 .footer h3 {
-    font-size: 16px; 
+    font-size: 20px; 
     margin-bottom: 5px; 
 }
 
@@ -521,6 +523,7 @@ body {
     font-size: 12px; 
     margin-top: 5px; 
     margin-bottom: 0; 
+    color: #d9d9d9;
 }
 
 .overlay {
@@ -628,7 +631,7 @@ body {
 .modal-content {
   background-color: #d9d9d9;
   margin: 15% auto;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #888;
   width: 80%;
   max-width: 400px;
@@ -663,4 +666,59 @@ body {
 #okButton:hover {
   background-color: #ABCDF6;
   color: #17448F;
+}
+
+.room-booking {
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.rooms-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.room {
+  background-color: transparent;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.room img {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.room-info {
+  padding: 15px;
+}
+
+.room-info h3 {
+  margin: 0 0 10px 0;
+  color: #042048;
+}
+
+.room-info p {
+  margin: 0 0 15px 0;
+}
+
+.room-info .btn-pesan {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #042048;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.room-info .btn-pesan:hover {
+  background-color: #054080;
 }
