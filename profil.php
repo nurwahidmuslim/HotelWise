@@ -82,7 +82,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <a href="profil.php">Profil</a>
                     <a href="contact.php">Contact</a>
                     <a href="riwayat.php">Riwayat Booking</a>
-                    <a href="daftar.php">Keluar</a>
+                    <a href="index.html">Keluar</a>
                 </div>
             </div>
         </nav>
