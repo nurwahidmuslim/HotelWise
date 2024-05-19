@@ -194,5 +194,7 @@ session_start();
             </div>
         </footer>
     </div>
+
+    <script src="dropdown.js"></script>
 </body>
 </html>

@@ -81,5 +81,7 @@ session_start();
                 <button type="submit" class="submit-btn">Konfirmasi Pembayaran</button>
             </form>
         </div>
+
+        <script src="dropdown.js"></script>
     </body>
 </html>
