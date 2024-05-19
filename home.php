@@ -94,7 +94,7 @@ session_start();
                     <div class="option" onclick="selectGuestOption('4 Guests')">4 Guests</div>
                 </div>
             </div>
-            <a href="daftar.php" class="btn-cari"><img class="logo-cari" src="gambar/cari.svg">Cari</a>
+            <a href="reservasi.php" class="btn-cari">Pesan Sekarang</a>
             </div>
         </div>
     </div>
