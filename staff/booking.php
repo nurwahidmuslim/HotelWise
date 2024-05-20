@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - HotelWISE</title>
+    <title>Booking - HotelWISE</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,34 +13,38 @@
             <img src="gambar/logo.svg" alt="Logo" class="logo">
         </div>
         <div class="navbar-right">
-            <p>Admin</p>
+            <p>Staff</p>
         </div>
     </nav>
 
     <div class="sidebar">
         <ul>
             <li><a href="index.php">Dashboard</a></li>
-            <li><a href="kamar.php">Kamar</a></li>
+            <li><a href="booking.php">Booking</a></li>
         </ul>
         <a href="logout.php" class="logout">Keluar <<</a>
     </div>
 
     <div class="main-content">
-        <h2>Data Pemesanan</h2>
+        <h2>Riwayat Pemesanan</h2>
         <table>
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
-                    <th>Tanggal</th>
-                    <th>Action</th>
+                    <th>Jenis</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 include 'koneksi.php';
-                $sql = "SELECT id_pemesanan, nama_pemesan, tanggal FROM pemesanan";
+                $sql = "SELECT p.id_pemesanan, p.nama_pemesan, p.action, k.tipe_kamar FROM pemesanan p LEFT JOIN kamar k ON p.id_kamar = k.id_kamar;";
                 $result = $conn->query($sql);
+
+                if (!$result) {
+                    die("Error executing query: " . $conn->error);
+                }
 
                 if ($result->num_rows > 0) {
                     $no = 1;
@@ -48,8 +52,8 @@
                         echo "<tr>
                                 <td>" . $no++ . "</td>
                                 <td>" . $row["nama_pemesan"] . "</td>
-                                <td>" . $row["tanggal"] . "</td>
-                                <td><a href='#' class='detail-link' data-id='" . $row["id_pemesanan"] . "'>Detail</a></td>
+                                <td>" . $row["tipe_kamar"] . "</td>
+                                <td>" . $row["action"] . "</td>
                               </tr>";
                     }
                 } else {
@@ -61,20 +65,5 @@
             </tbody>
         </table>
     </div>
-
-    <div class="overlay" id="overlay">
-        <div class="modal">
-            <div class="modal-content" id="modal-content">
-                <!-- Dynamic content will be loaded here -->
-            </div>
-            <div class="modal-actions">
-                <button id="accept-btn">Terima</button>
-                <button id="pending-btn">Pending</button>
-                <button id="reject-btn">Tolak</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
