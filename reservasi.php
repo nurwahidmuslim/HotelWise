@@ -204,7 +204,7 @@ if ($result->num_rows > 0) {
     <div class="content">
         <?php foreach ($rooms as $room): ?>
         <div class="room-card">
-        <img src="gambar/<?php echo htmlspecialchars($room['foto']); ?>" width="300">
+        <img src="gambar/<?php echo htmlspecialchars($room['foto']); ?>" width="300" height="200">
             <div class="room-info">
                 <h2><?php echo htmlspecialchars($room['tipe_kamar']); ?></h2>
                 <div class="container">
