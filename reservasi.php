@@ -176,80 +176,6 @@ if ($result->num_rows > 0) {
         .book-now:hover {
             background-color: #004080;
         }
-
-        .payment-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); 
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .payment-overlay-content {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            width: 400px; /* Adjust width as needed */
-            text-align: center;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Drop shadow for a raised effect */
-        }
-
-        .payment-close-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 20px;
-            color: #333;
-        }
-
-        .payment-details h2 {
-            color: #002b59;
-        }
-
-        .payment-info {
-            background-color: #e5e5e5;
-            border-radius: 10px;
-            margin: 20px 0;
-            padding: 10px;
-        }
-
-        .payment-info p {
-            margin: 5px 0;
-        }
-
-        .payment-method {
-            margin: 10px 0;
-            text-align: left;
-        }
-
-        .payment-method label {
-            margin-right: 10px;
-        }
-
-        .payment-method input {
-            margin-right: 5px;
-        }
-
-        .confirm-payment {
-            background-color: #002b59;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .confirm-payment:hover {
-            background-color: #004080;
-        }
     </style>
 </head>
 <body>
@@ -390,6 +316,8 @@ if ($result->num_rows > 0) {
                 <div>
                     <label>Total</label>
                     <p id="payment-total"></p>
+                    <p>Rek: 0987654321</p>
+                    <p>Dana: 08888888888</p>
                 </div>
                 <button type="submit">Confirm</button>
             </form>
