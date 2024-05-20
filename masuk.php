@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         $_SESSION['namaP'] = $row['nama_panggilan'];
         $_SESSION['id_client'] = $row['id_client'];
+        $_SESSION['namaL'] = $row['nama_lengkap'];
         header("Location: home.php");
         exit();
     } else {
