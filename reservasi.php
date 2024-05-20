@@ -1,10 +1,9 @@
 <?php
 session_start();
-include 'koneksi.php'; // File to connect to the database
+include 'koneksi.php';
 
-// Fetch room data from the database
 $query = "
-    SELECT k.no_kamar, k.harga, k.status, t.tipe_kamar, t.foto, t.size, t.bed, t.kategori, t.fasilitas
+    SELECT k.no_kamar, k.status, t.tipe_kamar, t.harga, t.foto, t.size, t.bed, t.kategori, t.fasilitas
     FROM kamar k
     JOIN tipe_kamar t ON k.tipe_kamar = t.id_kamar
 ";
@@ -92,7 +91,7 @@ if ($result->num_rows > 0) {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            background-color: rgba(0, 0, 0, 0.5); 
             display: none;
             justify-content: center;
             align-items: center;
@@ -205,7 +204,7 @@ if ($result->num_rows > 0) {
     <div class="content">
         <?php foreach ($rooms as $room): ?>
         <div class="room-card">
-        <img src="gambar/<?php echo htmlspecialchars($room['foto']); ?>.svg" width="300">
+        <img src="gambar/<?php echo htmlspecialchars($room['foto']); ?>" width="300">
             <div class="room-info">
                 <h2><?php echo htmlspecialchars($room['tipe_kamar']); ?></h2>
                 <div class="container">
@@ -258,21 +257,21 @@ if ($result->num_rows > 0) {
             <span class="close-icon" id="close-icon">&times;</span>
             <div class="order-details">
                 <h2>Detail Pesanan</h2>
-                <p class="price" id="overlay-price">Rp 150.000,00</p>
+                <p class="price" id="overlay-price"></p>
                 <div class="room-infoo">
                     <div class="check-in-out">
                         <div class="check-in">
                             <p>Check in</p>
-                            <p id="overlay-checkin-date">Sabtu, 4 Mei 2024</p>
+                            <p id="overlay-checkin-date"></p>
                         </div>
                         <div class="check-out">
                             <p>Check Out</p>
-                            <p id="overlay-checkout-date">Minggu, 5 Mei 2024</p>
+                            <p id="overlay-checkout-date"></p>
                         </div>
                     </div>
                     <div class="room-type">
                         <p>Tipe Kamar</p>
-                        <p id="overlay-room-type">Standard Single/Twin Room</p>
+                        <p id="overlay-room-type"></p>
                     </div>
                 </div>
                 <div class="room-number">
