@@ -2,62 +2,84 @@
 session_start();
 include 'koneksi.php'; // File to connect to the database
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nama = $_SESSION['namaL'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nama = $_POST['nama'];
     $jenis_pembayaran = $_POST['jenis_pembayaran'];
-    $no_rek_e_wallet = $_POST['no_rek_e_wallet'];
+    $norek_e_wallet = $_POST['norek_e_wallet'];
     $tipe_kamar = $_POST['tipe_kamar'];
-    $total = str_replace('.', '', $_POST['total']); // Remove dot from the total
-    $total = str_replace(',', '.', $total); // Replace comma with dot for float conversion
+    $total = str_replace(['Rp ', '.'], '', $_POST['total']); // Remove 'Rp ' and dots
+    $no_kamar = $_POST['no_kamar']; // Nomor kamar yang dipilih
 
-    // Debug: Print the received values
-    echo "Nama: $nama\n";
-    echo "Jenis Pembayaran: $jenis_pembayaran\n";
-    echo "No Rek/E-wallet: $no_rek_e_wallet\n";
-    echo "Tipe Kamar: $tipe_kamar\n";
-    echo "Total: $total\n";
+    // Upload bukti pembayaran
+    $target_dir = "bukti_pembayaran/";
+    $imageFileType = strtolower(pathinfo($_FILES["bukti"]["name"], PATHINFO_EXTENSION));
+    $random_file_name = uniqid() . '.' . $imageFileType;
+    $target_file = $target_dir . $random_file_name;
+    $uploadOk = 1;
 
-    // Verify if the tipe_kamar exists in the tipe_kamar table
-    $verify_query = "SELECT COUNT(*) FROM tipe_kamar WHERE id_kamar = ?";
-    $verify_stmt = $conn->prepare($verify_query);
-    if ($verify_stmt) {
-        $verify_stmt->bind_param("s", $tipe_kamar);
-        $verify_stmt->execute();
-        $verify_stmt->bind_result($count);
-        $verify_stmt->fetch();
-        $verify_stmt->close();
-
-        if ($count == 0) {
-            echo "Error: Tipe kamar $tipe_kamar does not exist.";
-            exit;
-        }
+    // Check if file is an actual image or fake image
+    $check = getimagesize($_FILES["bukti"]["tmp_name"]);
+    if ($check !== false) {
+        $uploadOk = 1;
     } else {
-        echo "Error preparing verification query: " . $conn->error;
-        exit;
+        $uploadOk = 0;
     }
 
-    // Handle file upload
-    $target_dir = "bukti_pembayaran/";
-    $target_file = $target_dir . basename($_FILES["bukti"]["name"]);
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        $uploadOk = 0;
+    }
 
-    if (move_uploaded_file($_FILES["bukti"]["tmp_name"], $target_file)) {
-        // Insert data into the pemesanan table
-        $query = "INSERT INTO pemesanan (nama, jenis_pembayaran, norek_ewallet, tipe_kamar, total, bukti) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
+    // Check file size
+    if ($_FILES["bukti"]["size"] > 5000000) { // 5MB limit
+        $uploadOk = 0;
+    }
 
-        if ($stmt) {
-            $stmt->bind_param("ssssss", $nama, $jenis_pembayaran, $no_rek_e_wallet, $tipe_kamar, $total, $target_file);
-            if ($stmt->execute()) {
-                echo "Pemesanan berhasil!";
-            } else {
-                echo "Error executing query: " . $stmt->error;
+    // Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+    } else {
+        if (move_uploaded_file($_FILES["bukti"]["tmp_name"], $target_file)) {
+            // Insert into database
+            $stmt = $conn->prepare("INSERT INTO pemesanan (nama, jenis_pembayaran, norek_ewallet, tipe_kamar, total, bukti) VALUES (?, ?, ?, ?, ?, ?)");
+            
+            // Check if prepare() failed
+            if ($stmt === false) {
+                die('Prepare failed: ' . htmlspecialchars($conn->error));
             }
+            
+            $stmt->bind_param("ssssss", $nama, $jenis_pembayaran, $norek_e_wallet, $tipe_kamar, $total, $random_file_name);
+
+            if ($stmt->execute()) {
+                // Update the status of the selected room to 'Tidak Tersedia'
+                $update_stmt = $conn->prepare("UPDATE kamar SET status = 'Tidak Tersedia' WHERE no_kamar = ?");
+                
+                // Check if prepare() failed
+                if ($update_stmt === false) {
+                    die('Prepare failed: ' . htmlspecialchars($conn->error));
+                }
+                
+                $update_stmt->bind_param("s", $no_kamar);
+                if ($update_stmt->execute()) {
+                    echo "Room status updated successfully.";
+                } else {
+                    echo "Error updating room status: " . htmlspecialchars($update_stmt->error);
+                }
+
+                $update_stmt->close();
+            } else {
+                echo "Error: " . htmlspecialchars($stmt->error);
+            }
+
             $stmt->close();
         } else {
-            echo "Error preparing insert query: " . $conn->error;
+            echo "Sorry, there was an error uploading your file.";
         }
-    } else {
-        echo "Error uploading file.";
     }
 
     $conn->close();

@@ -4,7 +4,7 @@ include 'koneksi.php'; // File to connect to the database
 
 // Fetch room data from the database
 $query = "
-    SELECT k.no_kamar, k.status, t.id_kamar, t.tipe_kamar, t.harga, t.foto, t.size, t.bed, t.kategori, t.fasilitas
+    SELECT k.no_kamar, k.status, t.tipe_kamar, t.harga, t.foto, t.size, t.bed, t.kategori, t.fasilitas
     FROM kamar k
     JOIN tipe_kamar t ON k.tipe_kamar = t.id_kamar
 ";
@@ -20,7 +20,6 @@ if ($result->num_rows > 0) {
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="id">
@@ -176,6 +175,88 @@ if ($result->num_rows > 0) {
         .book-now:hover {
             background-color: #004080;
         }
+
+        /* Overlay background */
+        #payment-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none; /* Initially hidden */
+        }
+
+        /* Overlay content */
+        #payment-overlay-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Close icon */
+        #payment-close-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Payment details */
+        .payment-details h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .payment-details form > div {
+            margin-bottom: 15px;
+        }
+
+        /* Labels */
+        .payment-details label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Input fields */
+        .payment-details input[type="text"],
+        .payment-details select,
+        .payment-details input[type="file"] {
+            width: calc(100% - 10px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 0 5px;
+        }
+
+        /* Button */
+        .payment-details .confirm-booking {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .payment-details .confirm-booking:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -227,12 +308,10 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
             <div class="button-container">
-                <p class="price">
-                    <span>Harga mulai dari:</span><br>
-                    <span style="font-size: 20px; font-weight: bold;">Rp <?php echo number_format($room['harga'], 2, ',', '.'); ?></span><br>
-                    <span>per malam</span>
-                </p>
-                <button class="button" onclick="showOverlay('<?php echo htmlspecialchars($room['id_kamar']); ?>', '<?php echo number_format($room['harga'], 2, ',', '.'); ?>')">Pesan Sekarang</button>
+                <p class="price"><span>Harga mulai dari:</span><br>
+                <span style="font-size: 20px; font-weight: bold;">Rp <?php echo number_format($room['harga'], 2, ',', '.'); ?></span><br>
+                <span>per malam</span></p>
+                <button class="button" onclick="showOverlay('<?php echo htmlspecialchars($room['tipe_kamar']); ?>', '<?php echo number_format($room['harga'], 2, ',', '.'); ?>')">Pesan Sekarang</button>
             </div>
         </div>
         <?php endforeach; ?>
@@ -288,39 +367,39 @@ if ($result->num_rows > 0) {
     </div>
 
     <div class="overlay" id="payment-overlay">
-        <div class="overlay-content">
+        <div class="overlay-content" id="payment-overlay-content">
             <span class="close-icon" id="payment-close-icon">&times;</span>
-            <form id="payment-form" action="pembayaran.php" method="post" enctype="multipart/form-data">
-                <h2>Payment Details</h2>
-                <input type="hidden" name="tipe_kamar" id="payment-room-type-value">
-                <input type="hidden" name="total" id="payment-total-value">
-                <div>
-                    <label for="nama">Name</label>
-                    <input type="text" id="payment-nama" name="nama" value="<?php echo htmlspecialchars($_SESSION['namaL']); ?>" readonly>
-                </div>
-                <div>
-                    <label for="jenis_pembayaran">Payment Method</label>
-                    <select id="jenis_pembayaran" name="jenis_pembayaran">
-                        <option value="Rekening">Rekening</option>
-                        <option value="E-wallet">E-wallet</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="no_rek_e_wallet">Account/E-wallet Number</label>
-                    <input type="text" id="no_rek_e_wallet" name="no_rek_e_wallet" required>
-                </div>
-                <div>
-                    <label for="bukti">Upload Proof of Payment</label>
-                    <input type="file" id="bukti" name="bukti" required>
-                </div>
-                <div>
-                    <label>Total</label>
-                    <p id="payment-total"></p>
-                    <p>Rek: 0987654321</p>
-                    <p>Dana: 08888888888</p>
-                </div>
-                <button type="submit">Confirm</button>
-            </form>
+            <div class="payment-details">
+                <h2>Detail Pembayaran</h2>
+                <form id="payment-form" enctype="multipart/form-data">
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" id="nama" name="nama" value="<?php echo htmlspecialchars($_SESSION['namaL']); ?>" readonly>
+                    </div>
+                    <div>
+                        <label for="jenis_pembayaran">Metode Pembayaran:</label>
+                        <select id="jenis_pembayaran" name="jenis_pembayaran" required>
+                            <option value="Rekening">Rekening</option>
+                            <option value="E-wallet">E-wallet</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="norek_e_wallet">No Rekening/E-wallet:</label>
+                        <input type="text" id="norek_e_wallet" name="norek_e_wallet" required>
+                    </div>
+                    <div>
+                        <label for="total">Total:</label>
+                        <input type="text" id="total" name="total" readonly>
+                    </div>
+                    <div>
+                        <label for="bukti">Upload Bukti Pembayaran:</label>
+                        <input type="file" id="bukti" name="bukti" required>
+                    </div>
+                    <input type="hidden" id="tipe_kamar" name="tipe_kamar">
+                    <input type="hidden" id="overlay-no-kamar" name="no_kamar">
+                    <button type="button" class="confirm-booking">Konfirmasi</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -369,7 +448,7 @@ if ($result->num_rows > 0) {
             document.getElementById('overlay-price').innerText = `Rp ${totalPrice}`;
             overlay.style.display = 'flex';
 
-            fetchAvailableRoomNumbers(roomTypeId);
+            fetchAvailableRoomNumbers(roomType);
         }
 
         function calculateTotalPrice(pricePerNight) {
@@ -389,7 +468,7 @@ if ($result->num_rows > 0) {
             document.getElementById('overlay-price').innerText = `Rp ${totalPrice}`;
         }
 
-        function fetchAvailableRoomNumbers(roomTypeId) {
+        function fetchAvailableRoomNumbers(roomType) {
             const request = new XMLHttpRequest();
             request.open('POST', 'pilih_nomor.php', true);
             request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -404,31 +483,44 @@ if ($result->num_rows > 0) {
                         option.text = number;
                         roomNumberSelect.add(option);
                     });
+
+                    // Auto select the first room number and set it to hidden input
+                    if (roomNumbers.length > 0) {
+                        selectedRoomNumber = roomNumbers[0];
+                        document.getElementById('overlay-no-kamar').value = selectedRoomNumber;
+                    }
                 }
             };
-            request.send(`roomType=${roomTypeId}`);
+            request.send(`roomType=${roomType}`);
         }
 
-        // Show payment overlay
+        document.querySelector('.confirm-booking').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(document.getElementById('payment-form'));
+
+            fetch('pembayaran.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert("Pembayaran berhasil dikonfirmasi.");
+                window.location.href = "riwayat.php";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
         function showPaymentOverlay() {
-            // Hide the order details overlay
-            document.getElementById('overlay').style.display = 'none';
-
-            // Populate payment overlay fields
             const paymentOverlay = document.getElementById('payment-overlay');
+            const totalPrice = document.getElementById('overlay-price').innerText;
             const roomType = document.getElementById('overlay-room-type').innerText;
-            const total = document.getElementById('overlay-price').innerText.replace('Rp ', '').replace(',', '.');
-
-            document.getElementById('payment-room-type-value').value = roomType;
-            document.getElementById('payment-total-value').value = total;
-            document.getElementById('payment-total').innerText = `Rp ${total}`;
-
-            // Show the payment overlay
+            document.getElementById('total').value = totalPrice;
+            document.getElementById('tipe_kamar').value = roomType;
             paymentOverlay.style.display = 'flex';
         }
-
-        // Add event listener to "Pesan Sekarang" button in the order details overlay
-        document.querySelector('.book-now').addEventListener('click', showPaymentOverlay);
     </script>
 </body>
 </html>
