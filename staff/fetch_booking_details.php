@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
 
-$sql = "SELECT id_pemesanan, nama_pemesan, telepon, jenis, total, bukti FROM pemesanan";
+$sql = "SELECT id_pemesanan, nama, norek_ewallet, jenis, total, bukti FROM pemesanan";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
