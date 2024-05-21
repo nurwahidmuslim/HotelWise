@@ -126,6 +126,7 @@ session_start();
             <span class="hello" style="color: #ABCDF6; text-transform: capitalize; font-size: 18px;">Halo, <span style="font-weight: bold;"><?php echo $_SESSION['namaP']; ?></span></span>
             <?php endif; ?>
             <div class="dropdown" id="dropdown-menu">
+                <a href="home.php">Home</a>
                 <a href="profil.php">Profil</a>
                 <a href="contact.php">Contact</a>
                 <a href="riwayat.php">Riwayat Booking</a>
