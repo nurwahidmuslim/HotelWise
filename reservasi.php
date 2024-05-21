@@ -102,10 +102,10 @@ if ($result->num_rows > 0) {
             background-color: #fff;
             border-radius: 10px;
             padding: 20px;
-            width: 400px; /* Adjust width as needed */
+            width: 400px; 
             text-align: center;
             position: relative;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Drop shadow for a raised effect */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
         }
 
         .close-icon {
@@ -114,7 +114,7 @@ if ($result->num_rows > 0) {
             right: 10px;
             cursor: pointer;
             font-size: 20px;
-            color: #333; /* Dark color for the close icon */
+            color: #333; 
         }
 
         .order-details h2 {
@@ -176,33 +176,30 @@ if ($result->num_rows > 0) {
             background-color: #004080;
         }
 
-        /* Overlay background */
         #payment-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            background-color: rgba(0, 0, 0, 0.7); 
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            display: none; /* Initially hidden */
+            display: none;
         }
 
-        /* Overlay content */
         #payment-overlay-content {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             max-width: 500px;
-            width: 100%;
+            width: 400px;
             position: relative;
         }
 
-        /* Close icon */
         #payment-close-icon {
             position: absolute;
             top: 10px;
@@ -211,7 +208,6 @@ if ($result->num_rows > 0) {
             cursor: pointer;
         }
 
-        /* Payment details */
         .payment-details h2 {
             margin-bottom: 20px;
             font-size: 24px;
@@ -222,7 +218,6 @@ if ($result->num_rows > 0) {
             margin-bottom: 15px;
         }
 
-        /* Labels */
         .payment-details label {
             display: block;
             margin-bottom: 5px;
@@ -230,7 +225,6 @@ if ($result->num_rows > 0) {
             color: #555;
         }
 
-        /* Input fields */
         .payment-details input[type="text"],
         .payment-details select,
         .payment-details input[type="file"] {
@@ -242,7 +236,6 @@ if ($result->num_rows > 0) {
             margin: 0 5px;
         }
 
-        /* Button */
         .payment-details .confirm-booking {
             background-color: #28a745;
             color: #fff;
@@ -397,6 +390,7 @@ if ($result->num_rows > 0) {
                     </div>
                     <input type="hidden" id="tipe_kamar" name="tipe_kamar">
                     <input type="hidden" id="overlay-no-kamar" name="no_kamar">
+                    <p style="font-size: 16px;">Rek: 0987654321              Dana: 08888888888</p>
                     <button type="button" class="confirm-booking">Konfirmasi</button>
                 </form>
             </div>
