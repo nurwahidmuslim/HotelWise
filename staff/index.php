@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Cek apakah user sudah login atau belum
+if (!isset($_SESSION['id_gabungan'])) {
+    header("Location: home_staff.php"); // Redirect ke halaman login jika belum login
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +31,7 @@
         <ul>
             <li><a href="index.php">Dashboard</a></li>
             <li><a href="booking.php">Booking</a></li>
-            </li><a href="home_staff.php" class="logout">Keluar <<</a></li>
+            <li><a href="home_staff.php" class="logout">Keluar <<</a></li>
         </ul>
     </div>
 
@@ -39,7 +49,7 @@
             <tbody>
                 <?php
                 include 'koneksi.php';
-                $sql = "SELECT id_pemesanan, nama_pemesan, tanggal FROM pemesanan";
+                $sql = "SELECT id_pemesanan, nama, tanggal FROM pemesanan";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -47,7 +57,7 @@
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
                                 <td>" . $no++ . "</td>
-                                <td>" . $row["nama_pemesan"] . "</td>
+                                <td>" . $row["nama"] . "</td>
                                 <td>" . $row["tanggal"] . "</td>
                                 <td><a href='#' class='detail-link' data-id='" . $row["id_pemesanan"] . "'>Detail</a></td>
                               </tr>";

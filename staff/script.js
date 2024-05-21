@@ -1,4 +1,3 @@
-// Add this to your script.js
 document.addEventListener('DOMContentLoaded', function () {
     const detailLinks = document.querySelectorAll('.detail-link');
     const overlay = document.getElementById('overlay');
@@ -38,13 +37,16 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.text())
             .then(data => {
                 modalContent.innerHTML = data;
+                modalContent.setAttribute('data-id', id); // Set ID pemesanan pada modal content
                 overlay.style.display = 'flex';
             })
             .catch(error => console.error('Error:', error));
     }
 
     function updateBookingStatus(status) {
-        const bookingId = document.querySelector('.modal-content').dataset.id;
+        const bookingId = modalContent.getAttribute('data-id'); // Ambil ID pemesanan dari atribut data-id
+        console.log(`Updating status for booking ID ${bookingId} to ${status}`); // Debug log
+
         fetch(`update_booking_status.php`, {
             method: 'POST',
             headers: {
@@ -54,12 +56,13 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.text())
         .then(data => {
+            console.log(`Response from server: ${data}`); // Debug log
             if (data === 'success') {
                 alert('Status updated successfully');
                 overlay.style.display = 'none';
                 location.reload(); // Reload the page to see the changes
             } else {
-                alert('Failed to update status');
+                alert('Failed to update status: ' + data);
             }
         })
         .catch(error => console.error('Error:', error));

@@ -1,22 +1,24 @@
 <?php
 include 'koneksi.php';
 
-$sql = "SELECT id_pemesanan, nama, norek_ewallet, jenis, total, bukti FROM pemesanan";
-$result = $conn->query($sql);
+$id = $_GET['id'];
+$sql = "SELECT id_pemesanan, nama, norek_ewallet, tipe_kamar, total, bukti FROM pemesanan WHERE id_pemesanan = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo "<div data-id='" . $row['id_pemesanan'] . "'>
-                <p>Nama&nbsp;&nbsp;: " . $row['nama_pemesan'] . "</p>
-                <p>Nomor Telepon&nbsp;&nbsp;: " . $row['telepon'] . "</p>
-                <p>Jenis Kamar&nbsp;&nbsp;: " . $row['jenis'] . "</p>
-                <p>Total Pembayaran&nbsp;&nbsp;: Rp. " . number_format($row['total'], 2, ',', '.') . "</p>
-                <p>Bukti Pembayaran&nbsp;&nbsp;<a href='" . $row['bukti'] . "' target='_blank'><i class='bi bi-file-earmark'></i>Lihat</a></p>
-              </div>";
-    }
+    $row = $result->fetch_assoc();
+    echo "<p>Nama&nbsp;&nbsp;: " . $row['nama'] . "</p>
+          <p>Nomor Rekening Ewallet&nbsp;&nbsp;: " . $row['norek_ewallet'] . "</p>
+          <p>Jenis Kamar&nbsp;&nbsp;: " . $row['tipe_kamar'] . "</p>
+          <p>Total Pembayaran&nbsp;&nbsp;: Rp. " . number_format($row['total'], 2, ',', '.') . "</p>
+          <p>Bukti Pembayaran&nbsp;&nbsp;<a href='" . $row['bukti'] . "' target='_blank'><i class='bi bi-file-earmark'></i>Lihat</a></p>";
 } else {
-    echo "No data found";
+    echo "<p>No data found</p>";
 }
 
+$stmt->close();
 $conn->close();
 ?>
