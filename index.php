@@ -1,3 +1,15 @@
+<?php
+include 'koneksi.php';
+
+$rooms = [];
+$query = "SELECT tipe_kamar, foto FROM tipe_kamar";
+$result = $conn->query($query);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $rooms[] = $row;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +22,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
-
 <style>
     body {
         height: 100%;
@@ -97,7 +108,6 @@
         background-color: #054080;
     }
 </style>
-
 <body>
     <nav class="navbar">
         <div class="navbar-left">
@@ -155,27 +165,15 @@
     <div class="room-booking">
         <h1 style="color: #042048; font-weight: 1000;">Jelajahi Kamar</h1>
         <div class="rooms-container">
-            <div class="room">
-                <img src="gambar/kamar 1.svg">
-                <div class="room-info">
-                    <h3>Standard Single/Twin Room</h3>
-                    <p>★★★★☆</p>
+            <?php foreach ($rooms as $room): ?>
+                <div class="room">
+                    <img src="gambar/<?php echo htmlspecialchars($room['foto']); ?>?t=<?php echo time(); ?>" width="300">
+                    <div class="room-info">
+                        <h3><?php echo htmlspecialchars($room['tipe_kamar']); ?></h3>
+                        <p>★★★★☆</p>
+                    </div>
                 </div>
-            </div>
-            <div class="room">
-                <img src="gambar/kamar 2.svg">
-                <div class="room-info">
-                    <h3>Superior Double Room</h3>
-                    <p>★★★★☆</p>
-                </div>
-            </div>
-            <div class="room">
-                <img src="gambar/kamar 3.svg">
-                <div class="room-info">
-                    <h3>Comfort Triple Room</h3>
-                    <p>★★★★☆</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
     
