@@ -21,8 +21,8 @@
         <ul>
             <li><a href="index.php">Dashboard</a></li>
             <li><a href="booking.php">Booking</a></li>
+            </li><a href="home_staff.php" class="logout">Keluar <<</a></li>
         </ul>
-        <a href="logout.php" class="logout">Keluar <<</a>
     </div>
 
     <div class="main-content">
