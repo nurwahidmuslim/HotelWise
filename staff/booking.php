@@ -21,8 +21,8 @@
         <ul>
             <li><a href="index.php">Dashboard</a></li>
             <li><a href="booking.php">Booking</a></li>
+            <li><a href="home_staff.php">Keluar <<</a></li>
         </ul>
-        <a href="logout.php" class="logout">Keluar <<</a>
     </div>
 
     <div class="main-content">
@@ -39,7 +39,7 @@
             <tbody>
                 <?php
                 include 'koneksi.php';
-                $sql = "SELECT p.id_pemesanan, p.nama_pemesan, p.action, k.tipe_kamar FROM pemesanan p LEFT JOIN kamar k ON p.id_kamar = k.id_kamar;";
+                $sql = "SELECT id_pemesanan, nama, action, tipe_kamar FROM pemesanan";
                 $result = $conn->query($sql);
 
                 if (!$result) {
@@ -51,7 +51,7 @@
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
                                 <td>" . $no++ . "</td>
-                                <td>" . $row["nama_pemesan"] . "</td>
+                                <td>" . $row["nama"] . "</td>
                                 <td>" . $row["tipe_kamar"] . "</td>
                                 <td>" . $row["action"] . "</td>
                               </tr>";
