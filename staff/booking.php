@@ -39,7 +39,7 @@
             <tbody>
                 <?php
                 include 'koneksi.php';
-                $sql = "SELECT id_pemesanan, nama, action, tipe_kamar FROM pemesanan";
+                $sql = "SELECT id_pemesanan, nama, status, tipe_kamar FROM pemesanan";
                 $result = $conn->query($sql);
 
                 if (!$result) {
@@ -53,7 +53,7 @@
                                 <td>" . $no++ . "</td>
                                 <td>" . $row["nama"] . "</td>
                                 <td>" . $row["tipe_kamar"] . "</td>
-                                <td>" . $row["action"] . "</td>
+                                <td>" . $row["status"] . "</td>
                               </tr>";
                     }
                 } else {

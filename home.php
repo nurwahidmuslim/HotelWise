@@ -1,5 +1,15 @@
 <?php
 session_start();
+include 'koneksi.php';
+
+$rooms = [];
+$query = "SELECT tipe_kamar, foto FROM tipe_kamar";
+$result = $conn->query($query);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $rooms[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +54,61 @@ session_start();
         margin-bottom: 20px;
         text-align: center;
         color: #ABCDF6;
+    }
+
+    .room-booking {
+        background-color: #d9d9d9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .rooms-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .room {
+        background-color: transparent;
+        overflow: hidden;
+        max-width: 300px;
+    }
+
+    .room img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .room-info {
+        padding: 15px;
+    }
+
+    .room-info h3 {
+        margin: 0 0 10px 0;
+        color: #042048;
+    }
+
+    .room-info p {
+        margin: 0 0 15px 0;
+        color: #666;
+    }
+
+    .room-info .btn-pesan {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #042048;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .room-info .btn-pesan:hover {
+        background-color: #054080;
     }
 </style>
 
@@ -97,6 +162,21 @@ session_start();
             </div>
             <a href="reservasi.php" class="btn-cari">Pesan Sekarang</a>
             </div>
+        </div>
+    </div>
+
+    <div class="room-booking">
+        <h1 style="color: #042048; font-weight: 1000;">Jelajahi Kamar</h1>
+        <div class="rooms-container">
+            <?php foreach ($rooms as $room): ?>
+                <div class="room">
+                    <img src="gambar/<?php echo htmlspecialchars($room['foto']); ?>?t=<?php echo time(); ?>" width="300">
+                    <div class="room-info">
+                        <h3><?php echo htmlspecialchars($room['tipe_kamar']); ?></h3>
+                        <p>★★★★☆</p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 

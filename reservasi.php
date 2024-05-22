@@ -79,6 +79,10 @@ if ($result->num_rows > 0) {
             margin-bottom: -25px
         }
 
+        .button:hover {
+            background-color: #004080;
+        }
+
         .container {
             display: flex;
             align-items: center;
@@ -153,6 +157,8 @@ if ($result->num_rows > 0) {
             padding: 10px;
             background-color: #e5e5e5;
             border-radius: 10px;
+            color: #042048;
+            font-weight: bold;
         }
 
         .number {
@@ -339,16 +345,16 @@ if ($result->num_rows > 0) {
                     <div class="check-in-out">
                         <div class="check-in">
                             <p>Check in</p>
-                            <p id="overlay-checkin-date"></p>
+                            <p id="overlay-checkin-date" style="font-weight: 500;"></p>
                         </div>
                         <div class="check-out">
                             <p>Check Out</p>
-                            <p id="overlay-checkout-date"></p>
+                            <p id="overlay-checkout-date" style="font-weight: 500;"></p>
                         </div>
                     </div>
                     <div class="room-type">
                         <p>Tipe Kamar</p>
-                        <p id="overlay-room-type"></p>
+                        <p id="overlay-room-type" style="font-weight: 500;"></p>
                     </div>
                 </div>
                 <div class="room-number">
