@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($stmt->execute()) {
                 // Update the status of the selected room to 'Tidak Tersedia'
-                $update_stmt = $conn->prepare("UPDATE kamar SET status = 'Tidak Tersedia' WHERE no_kamar = ?");
+                $update_stmt = $conn->prepare("UPDATE kamar SET status = 'tidak tersedia' WHERE no_kamar = ?");
                 
                 // Check if prepare() failed
                 if ($update_stmt === false) {
