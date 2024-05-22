@@ -391,6 +391,10 @@ if ($result->num_rows > 0) {
                     </div>
                     <input type="hidden" id="tipe_kamar" name="tipe_kamar">
                     <input type="hidden" id="overlay-no-kamar" name="no_kamar">
+                    <input type="hidden" id="id_client" name="id_client" value="<?php echo $_SESSION['id_client']; ?>">
+                    <input type="hidden" id="checkin_date" name="checkin_date" value="">
+                    <input type="hidden" id="checkout_date" name="checkout_date" value="">
+                    <input type="hidden" id="tanggal_pemesanan" name="tanggal_pemesanan" value="">
                     <p style="font-size: 16px;">Rek: 0987654321              Dana: 08888888888</p>
                     <button type="button" class="confirm-booking">Konfirmasi</button>
                 </form>
@@ -512,8 +516,17 @@ if ($result->num_rows > 0) {
             const paymentOverlay = document.getElementById('payment-overlay');
             const totalPrice = document.getElementById('overlay-price').innerText;
             const roomType = document.getElementById('overlay-room-type').innerText;
+            const checkinDate = document.getElementById('checkin-date').value;
+            const checkoutDate = document.getElementById('checkout-date').value;
+            
             document.getElementById('total').value = totalPrice;
             document.getElementById('tipe_kamar').value = roomType;
+            document.getElementById('checkin_date').value = checkinDate;
+            document.getElementById('checkout_date').value = checkoutDate;
+
+            const currentDate = new Date().toISOString().split('T')[0];
+            document.getElementById('tanggal_pemesanan').value = currentDate;
+
             paymentOverlay.style.display = 'flex';
         }
     </script>

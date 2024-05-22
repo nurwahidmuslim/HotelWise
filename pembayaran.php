@@ -3,12 +3,16 @@ session_start();
 include 'koneksi.php'; // File to connect to the database
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_client = $_POST['id_client'];
     $nama = $_POST['nama'];
     $jenis_pembayaran = $_POST['jenis_pembayaran'];
     $norek_e_wallet = $_POST['norek_e_wallet'];
     $tipe_kamar = $_POST['tipe_kamar'];
     $total = str_replace(['Rp ', '.'], '', $_POST['total']); // Remove 'Rp ' and dots
     $no_kamar = $_POST['no_kamar']; // Nomor kamar yang dipilih
+    $tanggal_check_in = $_POST['checkin_date'];
+    $tanggal_check_out = $_POST['checkout_date'];
+    $tanggal_pemesanan = $_POST['tanggal_pemesanan'];
 
     // Upload bukti pembayaran
     $target_dir = "bukti_pembayaran/";
@@ -46,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         if (move_uploaded_file($_FILES["bukti"]["tmp_name"], $target_file)) {
             // Insert into database
-            $stmt = $conn->prepare("INSERT INTO pemesanan (nama, jenis_pembayaran, norek_ewallet, tipe_kamar, total, bukti) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO pemesanan (id_client, nama, jenis_pembayaran, norek_ewallet, tipe_kamar, total, bukti, no_kamar, tgl_in, tgl_out, tgl_book) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             
             // Check if prepare() failed
             if ($stmt === false) {
                 die('Prepare failed: ' . htmlspecialchars($conn->error));
             }
             
-            $stmt->bind_param("ssssss", $nama, $jenis_pembayaran, $norek_e_wallet, $tipe_kamar, $total, $random_file_name);
+            $stmt->bind_param("sssssssssss", $id_client, $nama, $jenis_pembayaran, $norek_e_wallet, $tipe_kamar, $total, $random_file_name, $no_kamar, $tanggal_check_in, $tanggal_check_out, $tanggal_pemesanan);
 
             if ($stmt->execute()) {
                 // Update the status of the selected room to 'Tidak Tersedia'
