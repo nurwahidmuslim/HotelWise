@@ -11,6 +11,46 @@ $result = $stmt->get_result();
 $pesanan = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 $conn->close();
+
+$days_indonesia = array(
+    'Sunday' => 'Minggu',
+    'Monday' => 'Senin',
+    'Tuesday' => 'Selasa',
+    'Wednesday' => 'Rabu',
+    'Thursday' => 'Kamis',
+    'Friday' => 'Jumat',
+    'Saturday' => 'Sabtu'
+);
+
+$months_indonesia = array(
+    'January' => 'Januari',
+    'February' => 'Februari',
+    'March' => 'Maret',
+    'April' => 'April',
+    'May' => 'Mei',
+    'June' => 'Juni',
+    'July' => 'Juli',
+    'August' => 'Agustus',
+    'September' => 'September',
+    'October' => 'Oktober',
+    'November' => 'November',
+    'December' => 'Desember'
+);
+
+function translate_day($day, $days_indonesia) {
+    return $days_indonesia[$day] ?? $day;
+}
+
+function translate_month($month, $months_indonesia) {
+    return $months_indonesia[$month] ?? $month;
+}
+
+function format_date_indonesia($date_str, $days_indonesia, $months_indonesia) {
+    $timestamp = strtotime($date_str);
+    $day = translate_day(date('l', $timestamp), $days_indonesia);
+    $month = translate_month(date('F', $timestamp), $months_indonesia);
+    return $day . ', ' . date('d', $timestamp) . ' ' . $month . ' ' . date('Y', $timestamp) . ' (' . date('H:i', $timestamp) . ')';
+}
 ?>
 
 <!DOCTYPE html>
@@ -147,8 +187,18 @@ $conn->close();
                 </div>
                 <div class="card-body">
                     <p>No. Kamar: <?php echo htmlspecialchars($order['no_kamar']); ?></p>
-                    <p>Check in: <?php echo date('D, d M Y (H:i)', strtotime(date('Y-m-d', strtotime($order['tgl_in'])) . ' 15:00')); ?></p>
-                    <p>Check out: <?php echo date('D, d M Y (H:i)', strtotime(date('Y-m-d', strtotime($order['tgl_out'])) . ' 12:00')); ?></p>
+                    <p>Check in: 
+                        <?php 
+                            $check_in = date('Y-m-d', strtotime($order['tgl_in'])) . ' 15:00';
+                            echo format_date_indonesia($check_in, $days_indonesia, $months_indonesia);
+                        ?>
+                    </p>
+                    <p>Check out: 
+                        <?php 
+                            $check_out = date('Y-m-d', strtotime($order['tgl_out'])) . ' 12:00';
+                            echo format_date_indonesia($check_out, $days_indonesia, $months_indonesia);
+                        ?>
+                    </p>
                 </div>
             </div>
         <?php endforeach; ?>
