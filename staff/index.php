@@ -49,7 +49,7 @@ if (!isset($_SESSION['id_gabungan'])) {
             <tbody>
                 <?php
                 include 'koneksi.php';
-                $sql = "SELECT id_pemesanan, nama, tanggal FROM pemesanan";
+                $sql = "SELECT id_pemesanan, nama, tgl_book FROM pemesanan";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -58,7 +58,7 @@ if (!isset($_SESSION['id_gabungan'])) {
                         echo "<tr>
                                 <td>" . $no++ . "</td>
                                 <td>" . $row["nama"] . "</td>
-                                <td>" . $row["tanggal"] . "</td>
+                                <td>" . $row["tgl_book"] . "</td>
                                 <td><a href='#' class='detail-link' data-id='" . $row["id_pemesanan"] . "'>Detail</a></td>
                               </tr>";
                     }
