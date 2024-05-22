@@ -21,15 +21,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     acceptBtn.addEventListener('click', function () {
-        updateBookingStatus('terima');
+        updateBookingStatus('Diterima');
     });
 
     pendingBtn.addEventListener('click', function () {
-        updateBookingStatus('pending');
+        updateBookingStatus('Pending');
     });
 
     rejectBtn.addEventListener('click', function () {
-        updateBookingStatus('tolak');
+        updateBookingStatus('Ditolak');
     });
 
     function fetchBookingDetails(id) {
