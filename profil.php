@@ -1,15 +1,15 @@
 <?php
 session_start();
-
 include 'koneksi.php';
 
-$query = "SELECT * FROM client";
+// Fetch user data
+$query = "SELECT * FROM client WHERE id_client = '{$_SESSION['id_client']}'";
 $result = mysqli_query($conn, $query);
 
 if ($result && mysqli_num_rows($result) > 0) {
     $data = mysqli_fetch_assoc($result);
     
-    $id = $data ['id_client'];
+    $id = $data['id_client'];
     $nama = $data['nama_lengkap'];
     $email = $data['email'];
     $no_telp = $data['no_telp'];
@@ -22,6 +22,12 @@ if ($result && mysqli_num_rows($result) > 0) {
     $no_telp = '';
     $tgl_lahir = '';
     $jenis_kelamin = '';
+}
+
+$success_message = '';
+if (isset($_SESSION['success_message'])) {
+    $success_message = $_SESSION['success_message'];
+    unset($_SESSION['success_message']);
 }
 ?>
 
@@ -89,41 +95,42 @@ if ($result && mysqli_num_rows($result) > 0) {
         </nav>
 
         <div class="content">
-        <h1>Profil</h1>
-        <form id="profile-form" method="post">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input type="text" id="nama" class="form-control" value="<?php echo $nama; ?>" disabled>
+            <h1>Profil</h1>
+            <form id="profile-form" method="post" action="update_profil.php">
+                <input type="hidden" name="id_client" value="<?php echo $id; ?>">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" id="nama" name="nama" class="form-control" value="<?php echo $nama; ?>" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" value="<?php echo $email; ?>" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_telp">No Telp</label>
+                        <input type="text" id="no_telp" name="no_telp" class="form-control" value="<?php echo $no_telp; ?>" disabled>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" value="<?php echo $email; ?>" disabled>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tgl_lahir">Tanggal Lahir</label>
+                        <input type="date" id="tgl_lahir" name="tgl_lahir" class="form-control" value="<?php echo $tgl_lahir; ?>" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" disabled>
+                            <option value="Laki-laki" <?php if($jenis_kelamin == 'Laki-laki') echo 'selected'; ?>>Laki-laki</option>
+                            <option value="Perempuan" <?php if($jenis_kelamin == 'Perempuan') echo 'selected'; ?>>Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group"></div>
                 </div>
-                <div class="form-group">
-                    <label for="no_telp">No Telp</label>
-                    <input type="text" id="no_telp" class="form-control" value="<?php echo $no_telp; ?>" disabled>
+                <div class="button-container">
+                    <button type="button" id="edit-btn">Edit Profil</button>
+                    <button type="submit" id="simpan-btn" style="display: none;">Simpan Profil</button>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="tg;_lahir">Tanggal Lahir</label>
-                    <input type="date" id="tg;_lahir" class="form-control" value="<?php echo $tgl_lahir; ?>" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="jenis_kelamin">Jenis Kelamin</label>
-                    <select id="jenis_kelamin" class="form-control" disabled>
-                        <option value="Laki-laki" <?php if($jenis_kelamin == 'Laki-laki') echo 'selected'; ?>>Laki-laki</option>
-                        <option value="Perempuan" <?php if($jenis_kelamin == 'Perempuan') echo 'selected'; ?>>Perempuan</option>
-                    </select>
-                </div>
-                <div class="form-group"></div>
-            </div>
-            <div class="button-container">
-                <button type="button" id="edit-btn">Edit Profil</button>
-                <button type="button" id="simpan-btn" style="display: none;">Simpan Profil</button>
-            </div>
-        </form>
+            </form>
         </div>
 
         <footer class="footer">
@@ -146,10 +153,10 @@ if ($result && mysqli_num_rows($result) > 0) {
 
         <script src="dropdown.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const editBtn = document.getElementById('edit-btn');
             const simpanBtn = document.getElementById('simpan-btn');
-            const formFields = document.querySelectorAll('.form-field');
+            const formFields = document.querySelectorAll('.form-control');
 
             editBtn.addEventListener('click', () => {
                 formFields.forEach(field => field.disabled = false);
@@ -157,13 +164,10 @@ if ($result && mysqli_num_rows($result) > 0) {
                 simpanBtn.style.display = 'inline';
             });
 
-            simpanBtn.addEventListener('click', () => {
-                formFields.forEach(field => field.disabled = true);
-                alert('Profil berhasil disimpan');
-                editBtn.style.display = 'inline';
-                simpanBtn.style.display = 'none';
-            });
+            <?php if ($success_message): ?>
+                alert('<?php echo $success_message; ?>');
+            <?php endif; ?>
         });
-        </script>
+    </script>
     </body>
 </html>
