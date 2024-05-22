@@ -15,7 +15,7 @@ if ($result->num_rows > 0) {
           <p>Tipe Kamar&nbsp;&nbsp;: " . $row['tipe_kamar'] . "</p>
           <p>Nomor Kamar&nbsp;&nbsp;: " . $row['no_kamar'] . "</p>
           <p>Total Pembayaran&nbsp;&nbsp;: Rp. " . number_format($row['total'], 2, ',', '.') . "</p>
-          <p>Bukti Pembayaran&nbsp;&nbsp;<a href='" . $row['bukti'] . "' target='_blank'><i class='bi bi-file-earmark'></i>Lihat</a></p>";
+          <p>Bukti Pembayaran&nbsp;&nbsp;<a href='../bukti_pembayaran/". $row['bukti'] . "' target='_blank'><i class='bi bi-file-earmark'></i>Lihat</a></p>";
 } else {
     echo "<p>No data found</p>";
 }
