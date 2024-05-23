@@ -8,10 +8,11 @@ include 'koneksi.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Room Image</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Poppins, sans-serif;
         }
         .container {
             max-width: 500px;
@@ -22,7 +23,7 @@ include 'koneksi.php';
             background-color: #f9f9f9;
         }
         h2 {
-            text-align: center;
+            text-align: left;
         }
         .form-group {
             margin-bottom: 15px;
@@ -30,6 +31,7 @@ include 'koneksi.php';
         label {
             display: block;
             margin-bottom: 5px;
+            color : #042048;
         }
         input[type="file"], select, button {
             width: 100%;
@@ -48,8 +50,26 @@ include 'koneksi.php';
     </style>
 </head>
 <body>
+<nav class="navbar">
+        <div class="navbar-left">
+            <img src="gambar/logo.svg" alt="Logo" class="logo">
+        </div>
+        <div class="navbar-right">
+            <p>Admin</p>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <ul>
+            <li><a href="riwayat_reservasi.php">Dashboard</a></li>
+            <li><a href="update_gambar.php">Kamar</a></li>
+            <li><a href="home_admin.php">Keluar <<</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h2>Edit Informasi Kamar</h2>
     <div class="container">
-        <h2>Update Room Image</h2>
         <form id="imageUploadForm" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="room-id">Select Room</label>
@@ -71,6 +91,7 @@ include 'koneksi.php';
             </div>
             <button type="submit">Upload</button>
         </form>
+    </div>
     </div>
 
     <script>

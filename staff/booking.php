@@ -19,7 +19,7 @@
 
     <div class="sidebar">
         <ul>
-            <li><a href="index.php">Dashboard</a></li>
+            <li><a href="validasi_reservasi.php">Dashboard</a></li>
             <li><a href="booking.php">Booking</a></li>
             <li><a href="home_staff.php">Keluar <<</a></li>
         </ul>

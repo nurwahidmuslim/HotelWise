@@ -13,15 +13,15 @@
             <img src="gambar/logo.svg" alt="Logo" class="logo">
         </div>
         <div class="navbar-right">
-            <p>Staff</p>
+            <p>Admin</p>
         </div>
     </nav>
 
     <div class="sidebar">
         <ul>
-            <li><a href="index.php">Dashboard</a></li>
-            <li><a href="booking.php">Booking</a></li>
-            <li><a href="home_staff.php">Keluar <<</a></li>
+            <li><a href="riwayat_reservasi.php">Dashboard</a></li>
+            <li><a href="update_gambar.php">Kamar</a></li>
+            <li><a href="home_admin.php">Keluar <<</a></li>
         </ul>
     </div>
 
@@ -39,7 +39,7 @@
             <tbody>
                 <?php
                 include 'koneksi.php';
-                $sql = "SELECT id_pemesanan, nama, action, tipe_kamar FROM pemesanan";
+                $sql = "SELECT id_pemesanan, nama, status, tipe_kamar FROM pemesanan";
                 $result = $conn->query($sql);
 
                 if (!$result) {
@@ -53,7 +53,7 @@
                                 <td>" . $no++ . "</td>
                                 <td>" . $row["nama"] . "</td>
                                 <td>" . $row["tipe_kamar"] . "</td>
-                                <td>" . $row["action"] . "</td>
+                                <td>" . $row["status"] . "</td>
                               </tr>";
                     }
                 } else {
