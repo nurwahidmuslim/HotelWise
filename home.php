@@ -56,6 +56,13 @@ if ($result->num_rows > 0) {
         color: #ABCDF6;
     }
 
+    h3{
+        font-size: 16px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #ABCDF6;
+    }
+
     .room-booking {
         background-color: #d9d9d9;
         display: flex;
@@ -134,7 +141,7 @@ if ($result->num_rows > 0) {
     </nav>
 
     <div class="content">
-        <h1>pa <br> </h1>
+        <h1>Temukan Kenyamanan Tanpa <br> Batas di Wisma Hotel Kami!</h1>
         <h3>Tingkatkan Pengalaman Menginap Anda</h3>
         <div class="box">
             <span class="box-left" id="checkin_box">
