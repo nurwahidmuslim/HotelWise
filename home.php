@@ -134,8 +134,8 @@ if ($result->num_rows > 0) {
     </nav>
 
     <div class="content">
-        <h1>Tingkatkan Pengalaman Menginap Anda<br>
-        Temukan Kenyamanan Tanpa Batas<br>di Hotel Kami!</h1>
+        <h1>Temukan Kenyamanan Tanpa <br> Batas di Hotel Kami!</h1>
+        <h3>Tingkatkan Pengalaman Menginap Anda</h3>
         <div class="box">
             <span class="box-left" id="checkin_box">
                 <p>Check In</p>
