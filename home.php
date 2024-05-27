@@ -57,7 +57,7 @@ if ($result->num_rows > 0) {
     }
 
     h3{
-        font-size: 16px;
+        font-size: 18px;
         margin-bottom: 20px;
         text-align: center;
         color: #ABCDF6;
