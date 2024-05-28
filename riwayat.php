@@ -3,7 +3,7 @@ session_start();
 include 'koneksi.php';
 
 $id_client = $_SESSION['id_client'];
-$query = "SELECT tipe_kamar, no_kamar, tgl_in, tgl_out, status FROM pemesanan WHERE id_client = ? AND tgl_book >= NOW() - INTERVAL 90 DAY";
+$query = "SELECT tipe_kamar, no_kamar, tgl_in, tgl_out, action FROM pemesanan WHERE id_client = ? AND tgl_book >= NOW() - INTERVAL 90 DAY ORDER BY waktu_input DESC";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id_client);
 $stmt->execute();
@@ -109,19 +109,19 @@ function format_date_indonesia($date_str, $days_indonesia, $months_indonesia) {
     .card-header, .card-body {
         color: #ABCDF6;
     }
-    .status-pending {
+    .action-pending {
         font-size: 14px;
         color: white;
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
-    .status-diterima {
+    .action-diterima {
         font-size: 14px;
         color: green;
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
-    .status-ditolak {
+    .action-ditolak {
         font-size: 14px;
         color: red;
         font-weight: bold;
@@ -174,15 +174,15 @@ function format_date_indonesia($date_str, $days_indonesia, $months_indonesia) {
                     <span><?php echo htmlspecialchars($order['tipe_kamar']); ?></span>
                     <span class="
                     <?php 
-                        if ($order['status'] == 'Pending') {
-                            echo 'status-pending';
-                        } elseif ($order['status'] == 'Diterima') {
-                            echo 'status-diterima';
-                        } elseif ($order['status'] == 'Ditolak') {
-                            echo 'status-ditolak';
+                        if ($order['action'] == 'Pending') {
+                            echo 'action-pending';
+                        } elseif ($order['action'] == 'Diterima') {
+                            echo 'action-diterima';
+                        } elseif ($order['action'] == 'Ditolak') {
+                            echo 'action-ditolak';
                         }
                     ?>">
-                        <?php echo htmlspecialchars($order['status']); ?>
+                        <?php echo htmlspecialchars($order['action']); ?>
                     </span>
                 </div>
                 <div class="card-body">
