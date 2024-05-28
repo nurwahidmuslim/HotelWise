@@ -130,7 +130,7 @@ session_start();
                 <a href="profil.php">Profil</a>
                 <a href="contact.php">Contact</a>
                 <a href="riwayat.php">Riwayat Booking</a>
-                <a href="index.html">Keluar</a>
+                <a href="index.php">Keluar</a>
             </div>
         </div>
     </nav>
