@@ -95,6 +95,7 @@ if ($result->num_rows > 0) {
     }
 
     .room-info h3 {
+        text-align: left;
         margin: 0 0 10px 0;
         color: #042048;
     }

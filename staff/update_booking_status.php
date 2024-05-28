@@ -13,7 +13,7 @@ if (isset($data['id']) && isset($data['status'])) {
     $status = $data['status'];
 
     // Gunakan prepared statements untuk keamanan
-    $stmt = $conn->prepare("UPDATE pemesanan SET status = ? WHERE id_pemesanan = ?");
+    $stmt = $conn->prepare("UPDATE pemesanan SET action = ? WHERE id_pemesanan = ?");
     $stmt->bind_param("si", $status, $id);
 
     if ($stmt->execute()) {
