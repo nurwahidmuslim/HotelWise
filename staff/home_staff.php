@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'koneksi.php';
+include 'koneksi.php'; // Pastikan file koneksi ini sudah benar dan berfungsi
 
 $alert_message = ""; // Initialize the variable
 
@@ -28,9 +28,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $_SESSION['id_gabungan'] = $row['id_gabungan'];
-        header("Location: validasi_reservasi.php"); 
-        exit();
+        
+        // Check if id_gabungan is 1
+        if ($row['id_gabungan'] == 1) {
+            $_SESSION['id_gabungan'] = $row['id_gabungan'];
+            header("Location: validasi_reservasi.php"); 
+            exit();
+        } else {
+            $alert_message = "Akses ditolak. ID tidak valid.";
+        }
     } else {
         $alert_message = "Username atau kata sandi salah.";
     }
