@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $_SESSION['id_gabungan'] = $row['id_gabungan'];
-        header("Location: index.php"); 
+        header("Location: validasi_reservasi.php"); 
         exit();
     } else {
         $alert_message = "Username atau kata sandi salah.";
