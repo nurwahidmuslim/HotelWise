@@ -1,3 +1,20 @@
+<?php
+include 'db/db.php';
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php");
+  exit;
+}
+
+// Ambil username dari session
+$username = $_SESSION['username'];
+
+$sql = "SELECT * FROM kamar";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +38,7 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -52,12 +70,12 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            Admin, <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($username); ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -152,12 +170,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                  </tr>
+                  <?php
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                      echo "<tr>
+                          <th scope='row'>" . $row["no_kamar"] . "</th>
+                          <td>" . $row["tipe_kamar"] . "</td>
+                          <td>" . $row["status"] . "</td>
+                          <td>
+                            <a href='#' class='edit-link' data-id='" . $row["no_kamar"] . "'<i class='bi bi-pencil-square'></i></a> |
+                            <a href='#' class='delete-link' data-id='" . $row["no_kamar"] . "'><i class='bi bi-trash'></i></a>
+                          </td>
+                        </tr>";
+                    }
+                  } else {
+                    echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
+                  }
+                  ?>
                 </tbody>
               </table>
               <!-- End Default Table Example -->

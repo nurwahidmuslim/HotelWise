@@ -93,7 +93,7 @@ $result = $conn->query($sql);
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="kamar.html">
+        <a class="nav-link collapsed" href="kamar.php">
           <i class="bi bi-journal-text"></i>
           <span>Kamar</span>
         </a>
