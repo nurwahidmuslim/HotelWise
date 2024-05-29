@@ -121,7 +121,7 @@ $result = $conn->query($sql);
               <div class="card recent-sales overflow-auto">
 
                 <div class="card-body">
-                  <h5 class="card-title">Riwayat Penjualan</h5>
+                  <h5 class="card-title">Riwayat Reservasi</h5>
 
                   <table class="table table-borderless datatable">
                     <thead>
