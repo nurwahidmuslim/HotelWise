@@ -141,28 +141,32 @@ session_start();
             <div class="h-line"></div>
             <div class="h-line2"></div>
         </div>
-        <div class="contact-info">
-            <p class="text-center">
-                Silahkan hubungi kami langsung jika anda memiliki pertanyaan mengenai layanan dan kerjasama, Kami akan dengan senang hati menerima anda.
-            </p>
-            <div>
-                <h3>Alamat</h3>
-                <i class="bi bi-geo-alt"></i><p>Jl. Prof. Dr. Ir. Sumantri Brojonegoro No.1,<br>Gedong Meneng, Kec. Rajabasa,<br>Kota Bandar Lampung, Lampung 35141</p>
-                <p><a href="https://g.co/kgs/8k1xvC4" target="_blank">View on map</a></p>
-            </div>
-            <div>
-                <h3>Narahubung</h3>
-                <i class="bi bi-telephone-fill"></i>
-                <p>
-                    Robby Hidayat: <a href="tel:087748672761">087748672761</a><br>
-                    Pradya Hening: <a href="tel:082177555903">082177555903</a><br>
-                    Nurwahid Muslim: <a href="tel:089515323978">089515323978</a><br>
-                    Wayan Santie Arif
+        <div class="contact-info d-flex flex-column">
+            <div class="col-12">
+                <p class="text-center">
+                    Silahkan hubungi kami langsung jika anda memiliki pertanyaan mengenai layanan dan kerjasama, Kami akan dengan senang hati menerima anda.
                 </p>
             </div>
-            <div>
-                <h3>Email</h3>
-                <i class="bi bi-envelope-fill"></i><p><a href="mailto:wisehotel@gmail.com">wisehotel@gmail.com</a></p>
+            <div class="d-flex justify-center" style="width: 100%;">
+                <div class="col-4">
+                    <h3>Alamat</h3>
+                    <i class="bi bi-geo-alt"></i><p>Jl. Prof. Dr. Ir. Sumantri Brojonegoro No.1,<br>Gedong Meneng, Kec. Rajabasa,<br>Kota Bandar Lampung, Lampung 35141</p>
+                    <p><a href="https://g.co/kgs/8k1xvC4" target="_blank">View on map</a></p>
+                </div>
+                <div class="col-4">
+                    <h3>Narahubung</h3>
+                    <i class="bi bi-telephone-fill"></i>
+                    <p>
+                        Robby Hidayat: <a href="tel:087748672761">087748672761</a><br>
+                        Pradya Hening: <a href="tel:082177555903">082177555903</a><br>
+                        Nurwahid Muslim: <a href="tel:089515323978">089515323978</a><br>
+                        Wayan Santie Arif
+                    </p>
+                </div>
+                <div class="col-4">
+                    <h3>Email</h3>
+                    <i class="bi bi-envelope-fill"></i><p><a href="mailto:wisehotel@gmail.com">wisehotel@gmail.com</a></p>
+                </div>
             </div>
         </div>
     </div>
