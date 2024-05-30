@@ -11,6 +11,88 @@ if (!isset($_SESSION['user_id'])) {
 // Ambil username dari session
 $username = $_SESSION['username'];
 
+// Fungsi untuk mengubah tipe_kamar dari angka menjadi teks
+function getRoomType($type) {
+  switch ($type) {
+    case 1:
+      return "Standard Single/Twin Room";
+    case 2:
+      return "Superior Double Room";
+    case 3:
+      return "Comfort Triple Room";
+    default:
+      return "Unknown Type";
+  }
+}
+
+// Fungsi untuk menyimpan data kamar ke database
+$error = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_kamar'])) {
+  $no_kamar = $_POST['no_kamar'];
+  $tipe_kamar = $_POST['tipe_kamar'];
+  $status = "tersedia";
+
+  // Cek apakah nomor kamar sudah ada
+  $sql_check = "SELECT * FROM kamar WHERE no_kamar = ?";
+  $stmt_check = $conn->prepare($sql_check);
+  $stmt_check->bind_param("i", $no_kamar);
+  $stmt_check->execute();
+  $result_check = $stmt_check->get_result();
+
+  if ($result_check->num_rows > 0) {
+    $error = "Nomor kamar sudah tersedia.";
+  } else {
+    $sql = "INSERT INTO kamar (no_kamar, tipe_kamar, status) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iis", $no_kamar, $tipe_kamar, $status);
+
+    if ($stmt->execute()) {
+      $error = "Kamar berhasil ditambahkan";
+    } else {
+      $error = "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $stmt->close();
+  }
+
+  $stmt_check->close();
+}
+
+// Fungsi untuk menghapus data kamar dari database
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_kamar'])) {
+  $no_kamar = $_POST['no_kamar'];
+
+  $sql_delete = "DELETE FROM kamar WHERE no_kamar = ?";
+  $stmt_delete = $conn->prepare($sql_delete);
+  $stmt_delete->bind_param("i", $no_kamar);
+
+  if ($stmt_delete->execute()) {
+    $error = "Kamar berhasil dihapus";
+  } else {
+    $error = "Error: " . $sql_delete . "<br>" . $conn->error;
+  }
+
+  $stmt_delete->close();
+}
+
+// Fungsi untuk mengupdate status kamar
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_kamar'])) {
+  $no_kamar = $_POST['no_kamar'];
+  $status = $_POST['status'];
+
+  $sql_update = "UPDATE kamar SET status = ? WHERE no_kamar = ?";
+  $stmt_update = $conn->prepare($sql_update);
+  $stmt_update->bind_param("si", $status, $no_kamar);
+
+  if ($stmt_update->execute()) {
+    $error = "Status kamar berhasil diubah";
+  } else {
+    $error = "Error: " . $sql_update . "<br>" . $conn->error;
+  }
+
+  $stmt_update->close();
+}
+
 $sql = "SELECT * FROM kamar";
 $result = $conn->query($sql);
 ?>
@@ -123,19 +205,19 @@ $result = $conn->query($sql);
               <h5 class="card-title">Tambah Kamar</h5>
 
               <!-- General Form Elements -->
-              <form>
+              <form method="POST" action="">
                 <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">Nomor Kamar</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" name="no_kamar" required>
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Tipe Kamar</label>
                   <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Open this select menu</option>
+                    <select class="form-select" aria-label="Default select example" name="tipe_kamar" required>
+                      <option selected disabled>Pilih tipe kamar</option>
                       <option value="1">Standard Single/Twin Room</option>
                       <option value="2">Superior Double Room</option>
                       <option value="3">Comfort Triple Room</option>
@@ -146,7 +228,7 @@ $result = $conn->query($sql);
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label"></label>
                   <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" name="add_kamar" class="btn btn-primary">Tambah</button>
                   </div>
                 </div>
 
@@ -159,6 +241,11 @@ $result = $conn->query($sql);
             <div class="card-body">
               <h5 class="card-title">Data semua kamar</h5>
 
+              <?php if (!empty($error)): ?>
+                <div class="alert alert-info" role="alert">
+                  <?php echo $error; ?>
+                </div>
+              <?php endif; ?>
               <!-- Default Table -->
               <table class="table">
                 <thead>
@@ -175,10 +262,10 @@ $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>
                           <th scope='row'>" . $row["no_kamar"] . "</th>
-                          <td>" . $row["tipe_kamar"] . "</td>
+                          <td>" . getRoomType($row["tipe_kamar"]) . "</td>
                           <td>" . $row["status"] . "</td>
                           <td>
-                            <a href='#' class='edit-link' data-id='" . $row["no_kamar"] . "'<i class='bi bi-pencil-square'></i></a> |
+                            <a href='#' class='edit-link' data-id='" . $row["no_kamar"] . "' data-status='" . $row["status"] . "'><i class='bi bi-pencil-square'></i></a> |
                             <a href='#' class='delete-link' data-id='" . $row["no_kamar"] . "'><i class='bi bi-trash'></i></a>
                           </td>
                         </tr>";
@@ -200,6 +287,62 @@ $result = $conn->query($sql);
 
   </main><!-- End #main -->
 
+  <!-- Modal Konfirmasi Hapus -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Hapus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Apakah Anda yakin ingin menghapus kamar ini? <br>
+          Nomor Kamar : <strong id="deleteRoomNumber"></strong>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <form method="POST" action="">
+            <input type="hidden" name="no_kamar" id="deleteNoKamar">
+            <button type="submit" name="delete_kamar" class="btn btn-danger">Hapus</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Status Kamar -->
+  <div class="modal fade" id="editStatusModal" tabindex="-1" aria-labelledby="editStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editStatusModalLabel">Edit Status Kamar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="">
+            <input type="hidden" name="no_kamar" id="editNoKamar">
+            <div class="row mb-3">
+              <label class="col-sm-4 col-form-label">Status Kamar</label>
+              <div class="col-sm-8">
+                <select class="form-select" aria-label="Default select example" name="status" id="editStatus" required>
+                  <option value="tersedia">Tersedia</option>
+                  <option value="tidak tersedia">Tidak Tersedia</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" name="update_kamar" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+          <div>
+            <strong>Nomor Kamar: </strong><span id="editRoomNumber"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -212,6 +355,37 @@ $result = $conn->query($sql);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Script for Edit and Delete Confirmation Modal -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Delete Confirmation
+      var deleteLinks = document.querySelectorAll('.delete-link');
+      deleteLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          var noKamar = this.getAttribute('data-id');
+          document.getElementById('deleteNoKamar').value = noKamar;
+          document.getElementById('deleteRoomNumber').innerText = noKamar;
+          var confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+          confirmDeleteModal.show();
+        });
+      });
+
+      // Edit Status
+      var editLinks = document.querySelectorAll('.edit-link');
+      editLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          var noKamar = this.getAttribute('data-id');
+          var status = this.getAttribute('data-status');
+          document.getElementById('editNoKamar').value = noKamar;
+          document.getElementById('editStatus').value = status;
+          document.getElementById('editRoomNumber').innerText = noKamar;
+          var editStatusModal = new bootstrap.Modal(document.getElementById('editStatusModal'));
+          editStatusModal.show();
+        });
+      });
+    });
+  </script>
 
 </body>
 
