@@ -8,12 +8,27 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Ambil level pengguna dari session
+$user_id = $_SESSION['user_id'];
+$stmt = $conn->prepare('SELECT level FROM `hw-admin` WHERE id = ?');
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+// Periksa level pengguna, jika bukan admin, arahkan kembali ke login
+if ($user['level'] != 1) {
+  header("Location: login.php");
+  exit;
+}
+
 // Ambil username dari session
 $username = $_SESSION['username'];
 
 $sql = "SELECT * FROM pemesanan";
 $result = $conn->query($sql);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -129,7 +144,7 @@ $result = $conn->query($sql);
                         <th scope="col">#</th>
                         <th scope="col">Client</th>
                         <th scope="col">Tipe Kamar</th>
-                        <th scope="col">Tanggal</th>
+                        <th scope="col">Tanggal Waktu Pemesanan</th>
                         <th scope="col">Status</th>
                       </tr>
                     </thead>
@@ -137,12 +152,13 @@ $result = $conn->query($sql);
                       <?php
                       if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
+                          $badgeClass = $row["action"] == "Diterima" ? "bg-success" : ($row["action"] == "Ditolak" ? "bg-danger" : "bg-secondary");
                           echo "<tr>
                           <th scope='row'>#" . $row["id_pemesanan"] . "</th>
                           <td>" . $row["nama"] . "</td>
                           <td>" . $row["tipe_kamar"] . "</td>
                           <td>" . $row["waktu_input"] . "</td>
-                          <td><span class='badge bg-success'>" . $row["action"] . "</span></td>
+                          <td><span class='badge $badgeClass'>" . $row["action"] . "</span></td>
                         </tr>";
                         }
                       } else {

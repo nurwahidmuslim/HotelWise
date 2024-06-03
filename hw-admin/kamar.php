@@ -8,6 +8,20 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
+// Memastikan variabel $user diinisialisasi dengan benar
+$user_id = $_SESSION['user_id'];
+$stmt = $conn->prepare('SELECT level FROM `hw-admin` WHERE id = ?');
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+// Cek apakah level pengguna sesuai dengan level yang diizinkan
+if ($user['level'] != 1) {
+  header("Location: staff-dashboard.php");
+  exit;
+}
+
 // Ambil username dari session
 $username = $_SESSION['username'];
 
