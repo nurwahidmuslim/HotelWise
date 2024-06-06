@@ -108,9 +108,9 @@ $result = $conn->query($sql);
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="kamar.php">
+        <a class="nav-link collapsed" href="staff-pemesanan.php">
           <i class="bi bi-journal-text"></i>
-          <span>Kamar</span>
+          <span>Pemesanan</span>
         </a>
       </li><!-- End Form Nav -->
 
