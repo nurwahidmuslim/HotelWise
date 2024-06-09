@@ -117,7 +117,7 @@ function format_date_indonesia($date_str, $days_indonesia, $months_indonesia) {
     }
     .action-diterima {
         font-size: 14px;
-        color: green;
+        color: #16FF00;
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
